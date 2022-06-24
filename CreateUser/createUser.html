@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Caleb Turnbow -->
+<!-- Dr. Wheat -->
+<!-- Internet Programming -->
+<!-- 15 Feburary 2019 -->
+
+<html lang = "en">
+	<head> 
+		<title> Hidden Fields </title>
+		<meta charset = "utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="createUser.css">
+		<script src="createUser.js"></script>
+		<script src="../header.js"></script>
+	</head>
+	<body>
+
+		<header-component></header-component>
+
+		<div class="center">
+			<div>
+			<form onsubmit="chkEmpty()" action="javascript:OpenWindow()" method="post">
+				
+				<h1 class="pageTitle"> Create Account </h1>
+
+				<div class="inputRow">
+					<label for="email"> Email:&nbsp; </label>
+					<input type="text" name="email" id="email" size="30" onblur="chkEmail()"/>
+				</div>
+				<div class="inputRow">
+					<label for="name"> Your Name:&nbsp; </label>
+					<input type="text" name="name" id="name" size="30" onblur="chkName()"/>
+				</div>
+				<div class="inputRow">
+					<label for="usn"> Username:&nbsp; </label>
+					<input type="text" name="usn" id="usn" size="30" onblur="chkUSN()"/>
+				</div>
+				<div class="inputRow">
+					<label for="pwd"> Password:&nbsp; </label>
+					<input type="password" name="pwd" id="pwd" size="30" onblur="chkPassword()"/>
+				</div>
+				<div class="inputRow">
+					<label  for="repwd"> Re-enter password:&nbsp; </label>
+					<input type="password" id="repwd" size="30" onblur="chkREpwd()"/>
+				</div>
+				<div class="inputRow"> 
+					<label for="reminder"> Reminder:&nbsp; </label>
+					<input type="text" name="reminder" id="reminder" size="30" onblur="chkRemind()"/>
+				</div>
+				<div class="inputRow">
+					<label for="balance"> Balance to deposit:&nbsp; </label>
+					<input type="text" name="balance" id="balance" size="30" onblur="chkBalance()"/>
+				</div>
+			
+				<input type="submit" id="crtAcc" name="Enter" value="Create"/>
+
+				
+
+			</form>
+
+			<a href="../Login/Login.html"> Login </a>
+			&nbsp;
+			<a href="../Remind/remind.html"> Forgot Password </a>
+			</div>
+		</div>
+
+		<span class="phantomFooter">Phantom Footer</span>
+	</body>
+</html>

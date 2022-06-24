@@ -1,0 +1,87 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	background-image: url("../resources/dan-meyers-0AgtPoAARtE-unsplash.jpg");
+	background-size: cover;
+	color: white;
+}
+
+body {
+	display: grid;
+	grid-template-rows: auto 400px auto;
+	grid-template-columns: auto 300px auto;
+	--background-body: rgba(255, 255, 255, .1);
+	background: var(--background-body);
+}
+
+main {
+	padding: 30px;
+	--background-main: rgb(255, 255, 255, .0);
+	background: var(--background-main);
+	border: 2px solid black;
+}
+
+div {
+	text-align: center;
+}
+
+div.inputRow {
+	text-align: center;
+	margin: 5px;
+}
+
+h1 {
+	margin-top: 0px;
+	font: 32pt Corbel Light;
+	color: #3dce53;
+	text-align: center;
+}
+
+label {
+	font-family: Corbel Light;
+}
+
+input.text {
+	font-family: Corbel Light;
+}
+
+input.button {
+	font-family: Corbel Light; 
+	background-color: #0CAC25; /* mediumspringgreen */
+   	color: white; 
+	border-color: #0CAC25;
+    font-style: bold;
+}
+
+a {
+	font: 12pt Corbel Light;
+	text-decoration: none;
+	border-bottom: 1px solid white; /* #505050 */
+	padding: 1px;
+	margin: 3px;
+	color: #50d3ff; /* #00BFFF */
+}
+
+#top, #right, #bottom, #left {
+	background-color: white;
+}
+#left {
+	grid-row-start: 1;
+	grid-row-end: 4;
+}
+#top {
+	grid-column-start: 2;
+	grid-column-end: 4;
+}
+#bottom {
+	grid-column-start: 2;
+	grid-column-end: 4;
+}
+.title { /* Hidden Fields Title */
+	position: absolute;
+	padding: 10px;
+	top: 0%;
+	font: italic bold 18pt Corbel Light;
+	color: #50d3ff;
+}

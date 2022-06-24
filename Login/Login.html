@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title> Hidden Fields </title>
+        <meta charset = "utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="Login.css">
+        <script src = "Login.js"></script>
+        <script src="../header.js"></script>
+    </head>
+  <body>
+    <div class="title">Hidden Fields</div>
+    <div id="left"></div>
+    <div id="top"></div>
+    <main onmouseenter="mouseEnterMain()" onmouseleave="mouseLeaveMain()">
+      <div>
+        <h1> Login </h1> 
+        <br />
+        <form action = "javascript:OpenWindow()" onsubmit = "chkIfAllFieldsEntered(event)">
+          <div class = "inputRow">
+            <label> &nbsp;Username:&nbsp; </label>
+            <input type = "text" id = "Username" class = "text" placeholder="theJoker"
+            onmouseenter="mouseEnterInput()" onmouseleave="mouseLeaveInput()"/>
+          </div>
+          <div class = "inputRow">
+            <label> &nbsp;Password:&nbsp; </label>
+            <input type = "password" id = "Password" class = "text" placeholder="Hahahahahah"
+            onmouseenter="mouseEnterInput()" onmouseleave="mouseLeaveInput()"/>
+          </div>
+          <br />
+          <br />
+          <div>
+            <input type = "submit" id = "login" value = "Login" class = "button"
+            onmouseenter="mouseEnterSubmit()" onmouseleave="mouseLeaveSubmit()"/>
+          </div>
+        </form>
+        <br />
+        <br />
+        <div>
+          <a href = "../CreateUser/createUser.html">Create Account</a> 
+          <br /> 
+          <br />
+          <a href = "../Remind/remind.html">Forgot Password</a>
+        </div>
+      </div>
+    </main>
+    <div id="right"></div>
+    <div id="bottom"></div>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+Changes to make universal in website
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset = "utf-8" content-type="utf-8" />
+
+menu hover buttons:
+change names (Add to Inventory, Sell Something, Buy Something, Deposit, Account Information)

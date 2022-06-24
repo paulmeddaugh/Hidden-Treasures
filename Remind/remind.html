@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Caleb Turnbow -->
+<!-- Dr. Wheat -->
+<!-- Internet Programming -->
+<!-- 15 Feburary 2019 -->
+
+<html lang = "en">
+	<head> 
+		<title> Hidden Fields </title>
+		<meta charset = "utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="remind.css">
+		<script type = "text/javascript" src="remind.js"></script>
+	</head>
+	<body>
+		<main>
+			<div class="pageTitle"> Recover Password </div>
+
+			<form onsubmit="chkEmpty()" action="javascript:OpenWindow()" method="POST">
+
+				<div class="inputRow">
+					Username:&nbsp;
+					<input type="text" id="usn" name="usn" onblur="chkUSN()" size="30" />
+				</div>
+			
+				<div class="inputRow">
+					Reminder:&nbsp;
+					<input title="" type="text" id="reminder" name="reminder" onblur="chkRemind()" size="30" />
+				</div>
+			
+				<input type="submit" name="Enter" value="Recover Password"/>
+
+				<div class="recoveredPwdHeader"> Your Password: </div>
+				<div id="pwdLoc"></div>
+
+			</form>
+			<br/>
+			<a href="../Login/Login.html"> Login </a> 
+			&nbsp;
+			<a href="../CreateUser/createUser.html"> Create Account </a>
+		</main>
+	</body>
+</html>

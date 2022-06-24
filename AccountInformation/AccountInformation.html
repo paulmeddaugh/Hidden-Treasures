@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head> 
+		<meta charset = "utf-8" />
+		<title> Account Information </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="../menu.css">
+		<link rel="stylesheet" href="./AccountInformation.css">
+		<script src = "AccountInformation.js"></script>
+	</head>
+	<body onload = "displayUser()">
+		
+		<!-----------------------------------------------------------------------------------
+		Menu Bar
+		------------------------------------------------------------------------------------>
+		
+		<span class="siteTitle">
+			Buy/Sell at Online Garage Sale
+		</span>
+	
+		<div class="dropdown">
+			<button class="dropbtn">Add/Sell</button>
+			<div class="dropdown-content">
+				<a href="../AddInventory/addInventory.html">Add Inventory</a>
+				<a href="../SomethingToSell/SomethingToSell.html">Something to Sell</a>
+				<a href="../Exchange/exchange.html">Exchange Screen</a>
+			</div>
+		</div>
+
+		&nbsp;
+
+		<div class="dropdown">
+			<button class="dropbtn">User</button>
+			<div class="dropdown-content">
+				<a href="AccountInformation.html">Account Info</a>
+				<a href="../UserBalance/userBalance.html">Add to Balance</a>
+			</div>
+		</div>
+
+		<span class="menuBarSpacing">
+			
+		<a class="user" id="duser" href="AccountInformation.html">-</a>
+
+		<hr class="menuBarLine" />
+
+		<!-----------------------------------------------------------------------------------
+		Info Side Box
+		------------------------------------------------------------------------------------>
+
+		<div class="infoBox">
+			<h2 style="color:#00BFFF;">Account Information</h2>
+				<div class="infoLine"></div>
+				<br/>
+				<br/>
+			<span class="infoBalance" id ="bal"></span>
+			<span class="infoParen"><br/><br/>(Refresh to see updated balance)</span>
+		</div>
+
+		<!-----------------------------------------------------------------------------------
+		Account Information
+		------------------------------------------------------------------------------------>
+
+		<div class="infoSpacing">
+
+			<table id = "InfoTbl">
+				<tr class = "Info"> 
+					<td id ="name"> Name: - </td>
+				</tr>
+				<tr class = "Info">
+					<td id ="usn"></td> 
+				</tr>
+				<tr class="Info">
+					<td><a id="addToBalance" href="../UserBalance/userBalance.html">Add to Balance</a></td>
+				</tr>
+				<tr class = "Info">
+					<td> 
+						<a id="signOut" href="../Login/Login.html">Sign Out</a>
+					</td> 
+				</tr>
+			</table>
+
+			<h3 style = "color: #00BFFF"> Items Sold </h3>
+
+			<div class="tableHolder">
+				<div class="tableName"></div>
+			</div>
+			
+			<h3 class="tableName"> Items Bought </h3>
+
+			<div class="tableHolder">
+				<div id="dispTable2"></div>
+			</div>
+			
+			<h3 class="tableName"> Items In Inventory </h3>
+
+			<div class="tableHolder">
+				<div id="dispTable"></div>
+			</div>
+		</div>
+	</body onload= "reload()">
+</html>

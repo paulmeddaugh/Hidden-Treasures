@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- Caleb Turnbow -->
+<!-- Dr. Wheat -->
+<!-- Internet Programming -->
+<!--  2019 -->
+
+<html lang = "en">
+	<head> 
+		<title> Add to Balance </title>
+		<meta charset = "utf-8" />
+		<link rel="stylesheet" href="../menu.css">
+		<link rel="stylesheet" href="userBalance.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="userBalance.js"></script>
+	</head>
+	<body onload = "displayUser()">
+
+		<div id = "menuAndInfoBar"></div>
+
+		<h3 class="info">
+			Please add the total amount of money to be added to your balance.
+		</h3>
+		
+		<form onsubmit="chkEmpty()" action="javascript:OpenWindow()" method="post">
+
+			<p class="info">
+				Amount:&nbsp;
+				<input type="text" id="balance" size="10" onblur="chkBalance()"/>
+			</p>
+		
+			<div class="center">
+				<input class="button" type="submit" id="submitBalance" value="Submit"/>
+			</div>
+
+		</form>
+	</body>
+</html>
