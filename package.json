@@ -1,0 +1,23 @@
+{
+  "name": "semp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "header.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulmeddaugh/Hidden-Fields.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulmeddaugh/Hidden-Fields/issues"
+  },
+  "homepage": "https://github.com/paulmeddaugh/Hidden-Fields#readme",
+  "dependencies": {
+    "firebase": "^9.8.4"
+  }
+}
