@@ -1,0 +1,45 @@
+.dispTableContainer {
+    overflow: auto;
+}
+
+input.buy {
+    background-color:#4CAF50; 
+    color:white;
+	margin-left: 46%px; 
+    border-color:#4CAF50;
+}
+th {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	font-size: 14pt;
+}
+tr {
+    color: white;
+	font-size: 12pt;
+    border: 1px solid grey;
+}
+
+td, th, table {
+	color: #00BFFF;
+	font-size: 20px;
+    border: 2px solid #303030;
+}
+td {
+    padding: 8px;
+    color:white;
+}
+#numToBuy {
+    outline-offset: 2px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    --focus-outline: 2px solid white;
+    height: 100%;
+}
+#numToBuy:focus {
+    /* Fallback */
+    outline: black auto 4px;
+    /* Dynamic value */
+    outline: var(--focus-outline);
+}

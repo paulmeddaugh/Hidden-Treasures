@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title> Hidden Fields </title>
         <meta charset = "utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./Login/Login.css">
-        <script src="./Login/Login.js"></script>
-        <script src="../header.js"></script>
+        <title> Hidden Fields </title>
+        <link rel="stylesheet" href="./styles/Login.css">
+        <script src="./scripts/Login.js"></script>
+        <script src="./scripts/header.js"></script>
     </head>
   <body>
     <div class="title">Hidden Fields</div>
@@ -16,31 +16,30 @@
       <div>
         <h1> Login </h1> 
         <br />
-        <form action = "javascript:OpenWindow()" onsubmit = "chkIfAllFieldsEntered(event)">
+        <form onsubmit = "return chkIfAllFieldsEntered(event)">
           <div class = "inputRow">
             <label> &nbsp;Username:&nbsp; </label>
-            <input type = "text" id = "Username" class = "text" placeholder="theJoker"
+            <input type = "text" id = "Username" class = "text" placeholder="StarsAreAlwaysOut"
             onmouseenter="mouseEnterInput()" onmouseleave="mouseLeaveInput()"/>
           </div>
           <div class = "inputRow">
             <label> &nbsp;Password:&nbsp; </label>
-            <input type = "password" id = "Password" class = "text" placeholder="Hahahahahah"
+            <input type = "password" id = "Password" class = "text" placeholder="TheySh1neBr1ghtest@tN1ght"
             onmouseenter="mouseEnterInput()" onmouseleave="mouseLeaveInput()"/>
           </div>
           <br />
           <br />
           <div>
-            <input type = "submit" id = "login" value = "Login" class = "button"
+            <input type = "submit" id = "login" value = "Login"
             onmouseenter="mouseEnterSubmit()" onmouseleave="mouseLeaveSubmit()"/>
           </div>
         </form>
         <br />
-        <br />
         <div>
-          <a href = "../CreateUser/createUser.html">Create Account</a> 
+          <a href = "./pages/createUser.html">Create Account</a> 
           <br /> 
           <br />
-          <a href = "../Remind/remind.html">Forgot Password</a>
+          <a href = "./pages/remind.html">Forgot Password</a>
         </div>
       </div>
     </main>

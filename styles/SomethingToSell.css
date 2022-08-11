@@ -1,0 +1,55 @@
+div.addInv {
+	border: 1px solid;
+	float: left; width:670px; height:120px;
+	border-color: #303030;
+	margin-left: 10px;
+	color:#00BFFF;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 20px 20px 8px;
+}
+		
+th {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	font-size: 14pt;
+}
+
+tr {
+	color: white;
+	font-size: 12pt;
+}
+	
+tr {
+	border: 1px solid grey;
+}
+
+td:hover {
+	background-color: rgb(100, 100, 100);
+}
+
+td.QuantityAvailable {
+	text-align: center;
+}
+
+input.QuantityOnMarket {
+	width: 40px;
+}
+
+input.Price {
+	width: 80px;
+}
+
+input[type="submit"] {
+	background-color:#4CAF50; 
+	color: white; 
+	border-color:#4CAF50;
+}
+
+p {
+	font-size: 12pt;
+	max-width: 600px;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head> 
+		<meta charset = "utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title> Hidden Fields - Add Inventory </title>
+		<link rel="stylesheet" href="../styles/menu.css">
+		<link rel="stylesheet" href="../styles/addToInventory.css">
+		<script src="../scripts/header.js"></script>
+		<script src="../scripts/infoBox.js"></script>
+		<script src="../scripts/addInventory.js"></script>
+	</head>
+	<body onload = "displayUser()">
+		<header-component></header-component>
+		<main>
+			<info-box-component title="Add To Inventory"></info-box-component>
+
+			<div class="pageContent">
+				<h3 class="grey-bg">Add Item to Inventory</h2>
+				<form onsubmit="chkEmpty()" action="javascript:OpenWindow()" method="POST">
+
+					<table>
+						<tr>
+							<th><label for="ItemName">Item Name</label></th> 
+							<td><input type="text" id="ItemName" onblur="chkIname()"/></td>
+						</tr>
+
+						<tr>
+							<th> &nbsp; <br/><label for="itemDes">Item Description</label> <br/> &nbsp;</th>
+							<td><textarea id="itemDes" rows="3" cols="32" onblur="chkIdes()"></textarea></td>
+						</tr>
+
+						<tr>
+							<th><label for="myNumber">Quantity</label></th>
+							<td><input type="number" id="myNumber" value="1" onblur="chkQuantity()"></td>
+						</tr>
+					</table>
+
+					<input type="submit" name="addItems" value="Add Items"/>
+
+				</form>
+
+				<h3 class="grey-bg">Currently In Inventory</h2>
+				<div class="tableContainer">
+					<div id="dispTable"></div>
+				</div>
+			</div>
+		</main>
+
+	</body>
+</html>
