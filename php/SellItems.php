@@ -5,13 +5,13 @@
 	  $dClength = sizeof($deCombined);
 	  
 	// Connect to MySQL
-	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 	
-	$query = "INSERT INTO Team4.Sells(`4sale_id`, item_idInventory, seller_idUser, quantity, price) VALUES ";
+	$query = "INSERT INTO semp.Sells(`4sale_id`, item_idInventory, seller_idUser, quantity, price) VALUES ";
 	
 	for ($i = 0; $i < $dClength; $i++) {
 		  if($i != $dClength -1){

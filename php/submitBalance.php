@@ -4,14 +4,14 @@
   $moneyToAdd = $_POST["moneyToAdd"];
   
   // Connect to MySQL
-  	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+  	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 	
 	// Submit the query to add to user balance
-	$query = "UPDATE Team4.User
+	$query = "UPDATE semp.User
 			  SET 
 				 curBal = curBal + $moneyToAdd
 			  WHERE

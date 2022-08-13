@@ -10,14 +10,14 @@
 	  //$uid = $_GET["uid"];
 
 	// Connect to MySQL
-	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 
 	// Submit the query for the list of folders
-	$query = "INSERT INTO Team4.User(idUser, email, name, username, pwd, reminder, curBal) VALUES (NULL, '$email', '$name', '$usn', '$pwd', '$rem', $bal)";
+	$query = "INSERT INTO semp.User(idUser, email, name, username, pwd, reminder, curBal) VALUES (NULL, '$email', '$name', '$usn', '$pwd', '$rem', $bal)";
 
 	$result = mysqli_query($db, $query);
 	$db->close();

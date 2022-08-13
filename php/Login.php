@@ -4,14 +4,14 @@
     $password = $_GET["password"]; 
 	
 	// Connect to MySQL
-	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 	
 	// Submit the query for the list of folders
-	$query = "select idUser, username, pwd, name, curBal FROM Team4.User WHERE username = '$username' AND pwd = '$password'";
+	$query = "select idUser, username, pwd, name, curBal FROM semp.User WHERE username = '$username' AND pwd = '$password'";
 	
 	$result = mysqli_query($db, $query);
 	

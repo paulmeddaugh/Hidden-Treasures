@@ -5,15 +5,15 @@
 	  $user = $_POST["user"];
 
 	// Connect to MySQL
-	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 
 	// Submit the query for the list of folders
-	$query = "INSERT INTO Team4.Inventory(idInventory, Pname, Pdescription) VALUES (NULL, '$iName', '$des');";
-	$query2 = "INSERT INTO Team4.Owns(item_idInventory, owner_idUser, quantity) VALUES (last_insert_id(), $user, $quan);";
+	$query = "INSERT INTO semp.Inventory(idInventory, Pname, Pdescription) VALUES (NULL, '$iName', '$des');";
+	$query2 = "INSERT INTO semp.Owns(item_idInventory, owner_idUser, quantity) VALUES (last_insert_id(), $user, $quan);";
 
 	$result = mysqli_query($db, $query);
 	$result2 = mysqli_query($db, $query2);

@@ -24,13 +24,13 @@
 	  $uOLen = sizeof($updateOwns);
 	  
 	// Connect to MySQL
-	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 	
-	$query = "INSERT INTO Team4.Transactions(Tid, quantity, price, buyer_idUser, seller_idUser, item_idInventory) VALUES ";
+	$query = "INSERT INTO semp.Transactions(Tid, quantity, price, buyer_idUser, seller_idUser, item_idInventory) VALUES ";
 	
 	for ($i = 0; $i < $tLen; $i++) {
 		if ($i != $tLen -1) {
@@ -40,7 +40,7 @@
 		}
 	} 
 	
-	$query2 = "UPDATE Team4.User SET curBal = CASE ";
+	$query2 = "UPDATE semp.User SET curBal = CASE ";
 	
 	for ($j = 0; $j < $sBLen; $j++) {
 		if ($j != $sBLen -1) {
@@ -50,7 +50,7 @@
 		}
 	} 
 	
-	$query3 = "Insert Into Team4.Inventory (`idInventory`, `Pname`, `Pdescription`) VALUES ";
+	$query3 = "Insert Into semp.Inventory (`idInventory`, `Pname`, `Pdescription`) VALUES ";
 	
 	for ($x = 0; $x < $iILen; $x++) {
 		if ($x != $iILen -1) {
@@ -60,7 +60,7 @@
 		}
 	} 
 	
-	$query4 = "Insert INTO Team4.Owns (`item_idInventory`,`owner_idUser`,`quantity`) VALUES ";
+	$query4 = "Insert INTO semp.Owns (`item_idInventory`,`owner_idUser`,`quantity`) VALUES ";
 	
 	for ($k = 0; $k < $iOLen; $k++) {
 		if ($k != $iOLen -1) {
@@ -70,7 +70,7 @@
 		}
 	} 
 	
-	$query5 = "UPDATE Team4.Sells SET quantity = CASE ";
+	$query5 = "UPDATE semp.Sells SET quantity = CASE ";
 	
 	for ($q = 0; $q < $uSLen; $q++) {
 		if ($q != $uSLen -1) {
@@ -80,7 +80,7 @@
 		}
 	} 
 	
-	$query6 = "UPDATE Team4.Owns SET quantity = CASE ";
+	$query6 = "UPDATE semp.Owns SET quantity = CASE ";
 	
 	for ($e = 0; $e <  $uOLen; $e++) {
 		  if($e !=  $uOLen -1){
@@ -90,7 +90,7 @@
 		  }
 	} 
 	
-	$query7 = "UPDATE Team4.User
+	$query7 = "UPDATE semp.User
 			  SET 
 				 curBal = curBal - $TotalPrice
 			  WHERE

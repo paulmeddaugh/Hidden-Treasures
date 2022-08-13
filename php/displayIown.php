@@ -3,19 +3,19 @@
   $user = $_GET["user"];
   
   // Connect to MySQL
-  	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+  	$db = mysqli_connect("localhost", "root", "", "semp");
 	if (mysqli_connect_errno()) {
 		print "Connect failed: " . mysqli_connect_error();
 		exit();
 	}
 	
 	// Submit the query for the list of folders
-	$query = "SELECT curBal, idInventory, Pname, Pdescription, Team4.Owns.quantity
-FROM Team4.Inventory
-INNER JOIN Team4.Owns ON
-Team4.Inventory.idInventory = Team4.Owns.item_idInventory
-INNER JOIN Team4.User ON 
-Team4.Owns.owner_idUser = Team4.User.idUser
+	$query = "SELECT curBal, idInventory, Pname, Pdescription, semp.Owns.quantity
+FROM semp.Inventory
+INNER JOIN semp.Owns ON
+semp.Inventory.idInventory = semp.Owns.item_idInventory
+INNER JOIN semp.User ON 
+semp.Owns.owner_idUser = semp.User.idUser
 WHERE owner_idUser = $user";
 	
 	$result = mysqli_query($db, $query);

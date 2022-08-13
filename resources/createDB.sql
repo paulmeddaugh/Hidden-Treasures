@@ -3,30 +3,30 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema Team4
+-- Schema semp
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Team4
+-- Schema semp
 -- -----------------------------------------------------
--- CREATE SCHEMA IF NOT EXISTS `Team4` DEFAULT CHARACTER SET utf8 ;
-USE `Team4` ;
+-- CREATE SCHEMA IF NOT EXISTS `semp` DEFAULT CHARACTER SET utf8 ;
+USE `semp` ;
 
 -- -----------------------------------------------------------------
 /*
-DROP TABLE Team4.Owns;
-DROP TABLE Team4.Sells;
-DROP TABLE Team4.Transactions;
-DROP TABLE Team4.Inventory;
-DROP TABLE Team4.User;
+DROP TABLE semp.Owns;
+DROP TABLE semp.Sells;
+DROP TABLE semp.Transactions;
+DROP TABLE semp.Inventory;
+DROP TABLE semp.User;
 */
 
 -- -----------------------------------------------------------
 
 -- -----------------------------------------------------
--- Table `Team4`.`User`
+-- Table `semp`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Team4`.`User` (
+CREATE TABLE IF NOT EXISTS `semp`.`User` (
   `idUser` INT AUTO_INCREMENT,
   `email` VARCHAR(26) NOT NULL,
   `name` VARCHAR(26) NOT NULL,
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `Team4`.`User` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `Team4`.`Inventory`
+-- Table `semp`.`Inventory`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Team4`.`Inventory` (
+CREATE TABLE IF NOT EXISTS `semp`.`Inventory` (
   `idInventory` INT AUTO_INCREMENT,
   `Pname` VARCHAR(22) NOT NULL,
   `Pdescription` VARCHAR(37) NOT NULL,
@@ -52,9 +52,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Team4`.`Transactions`
+-- Table `semp`.`Transactions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Team4`.`Transactions` (
+CREATE TABLE IF NOT EXISTS `semp`.`Transactions` (
   `Tid` INT AUTO_INCREMENT,
   `quantity` INT NOT NULL,
   `price` DOUBLE NOT NULL,
@@ -68,26 +68,26 @@ CREATE TABLE IF NOT EXISTS `Team4`.`Transactions` (
   INDEX `fk_Transactions_Inventory1_idx` (`item_idInventory` ASC),
   CONSTRAINT `fk_Transactions_Userbuy`
     FOREIGN KEY (`buyer_idUser`)
-    REFERENCES `Team4`.`User` (`idUser`)
+    REFERENCES `semp`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transactions_Usersell`
     FOREIGN KEY (`seller_idUser`)
-    REFERENCES `Team4`.`User` (`idUser`)
+    REFERENCES `semp`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transactions_Inventory1`
     FOREIGN KEY (`item_idInventory`)
-    REFERENCES `Team4`.`Inventory` (`idInventory`)
+    REFERENCES `semp`.`Inventory` (`idInventory`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Team4`.`Sells`
+-- Table `semp`.`Sells`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Team4`.`Sells` (
+CREATE TABLE IF NOT EXISTS `semp`.`Sells` (
   `4sale_id` INT AUTO_INCREMENT,
   `item_idInventory` INT NOT NULL,
   `seller_idUser` INT NOT NULL,
@@ -98,21 +98,21 @@ CREATE TABLE IF NOT EXISTS `Team4`.`Sells` (
   INDEX `fk_Inventory_has_User_Inventory1_idx` (`item_idInventory` ASC),
   CONSTRAINT `fk_Inventory_has_User_Inventory1`
     FOREIGN KEY (`item_idInventory`)
-    REFERENCES `Team4`.`Inventory` (`idInventory`)
+    REFERENCES `semp`.`Inventory` (`idInventory`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Inventory_has_User_User1`
     FOREIGN KEY (`seller_idUser`)
-    REFERENCES `Team4`.`User` (`idUser`)
+    REFERENCES `semp`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Team4`.`Owns`
+-- Table `semp`.`Owns`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Team4`.`Owns` (
+CREATE TABLE IF NOT EXISTS `semp`.`Owns` (
   `item_idInventory` INT NOT NULL,
   `owner_idUser` INT NOT NULL,
   `quantity` INT NOT NULL,
@@ -121,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `Team4`.`Owns` (
   INDEX `fk_Inventory_has_User_Inventory2_idx` (`item_idInventory` ASC),
   CONSTRAINT `fk_Inventory_has_User_Inventory2`
     FOREIGN KEY (`item_idInventory`)
-    REFERENCES `Team4`.`Inventory` (`idInventory`)
+    REFERENCES `semp`.`Inventory` (`idInventory`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Inventory_has_User_User2`
     FOREIGN KEY (`owner_idUser`)
-    REFERENCES `Team4`.`User` (`idUser`)
+    REFERENCES `semp`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
