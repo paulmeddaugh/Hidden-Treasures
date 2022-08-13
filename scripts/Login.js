@@ -7,71 +7,70 @@ function chkIfAllFieldsEntered(event) {
 	if (username.value == "" || password.value == "") {
 		if (username.value == "" && password.value == "") {
 			alert("Please enter both your username and password.");
+			return false;
 		} else if (username.value != "" && password.value == "") {
 			alert("Please enter your password.");
 			password.focus();
-			password.select();
+			return false;
 		} else if (username.value == "" && password.value != "") {
 			alert("Please enter your username.");
 			username.focus();
-			username.select();
+			return false;
 		}
 	} else {
 		//database query
 		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-			var result = xhr.responseText;
-			var jsonData = JSON.parse(result);
-			
-			var rowCount = jsonData.length;
-			
-				if (rowCount > 0) {
-					for (var i = 0; i < rowCount; i++) {
-						var rowdata = jsonData[i];
-					}
+		xhr.onload = function () {
+			let result = xhr.responseText;
+			let jsonData = JSON.parse(result);
+			let rowCount = jsonData.length;
+		
+			if (rowCount > 0) {
+				for (var i = 0; i < rowCount; i++) {
+					var rowdata = jsonData[i];
+				}
 
-					if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
-							password.value == rowdata.password) {
-						sessionStorage.setItem("uid", rowdata.uid);	
-						sessionStorage.setItem('username', rowdata.username);
-						sessionStorage.setItem('nameu', rowdata.nameu);
-						sessionStorage.setItem('balance', rowdata.balance);
-						window.open("./pages/exchange.html", '_self');
-					} else {
-						alert("Invalid username/password."); 
-						return false;
-					}
+				if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
+						password.value == rowdata.password) {
+					sessionStorage.setItem("uid", rowdata.uid);	
+					sessionStorage.setItem('username', rowdata.username);
+					sessionStorage.setItem('nameu', rowdata.nameu);
+					sessionStorage.setItem('balance', rowdata.balance);
+					window.location.href = "./pages/exchange.html";
+				} else {
+					alert("Invalid username/password.");
 				}
 			}
 		}
-		xhr.open("GET", "./php/Login.php?username=" + username.value + "&password="+ password.value);// 
+		xhr.open("GET", "./php/Login.php?username=" + username.value + "&password="+ password.value, true);
 		xhr.send();
+		return false;
 	}
 }
 
-function mouseEnterMain() {
-	for (let s of ['top', 'left', 'bottom', 'right']) {
-		document.getElementById(s).style.visibility = 'hidden';
-	}
-	document.getElementsByTagName('main')[0].style.border = '2px solid transparent';
-}
+/** Script for difficult styling when hovering in main.
+ *
+ * @param e A mouse event of either type 'mouseenter' or 'mouseleave' 
+*/
+function mouseHoverMain(e) {
+	const entering = (e.type == 'mouseenter') ? true : false;
 
-function mouseLeaveMain() {
+	 // Div's covering background image
 	for (let s of ['top', 'left', 'bottom', 'right']) {
-		document.getElementById(s).style.visibility = 'visible';
+		if (entering) document.getElementById(s).style.opacity = 0;
+		else document.getElementById(s).style.removeProperty('opacity');
 	}
+
+	// 'main' tag styling
+	const main = document.getElementsByTagName('main')[0];
+	main.style.border = '2px solid ' + ((entering) ? 'transparent' : 'black');
 	
-	document.getElementsByTagName('main')[0].style.border = '2px solid black';
-}
-
-function mouseEnterInput () {
-	mouseLeaveMain();
-	document.getElementsByTagName("body")[0].style.gridTemplateColumns = 'auto 100% auto';
-}
-function mouseLeaveInput () {
-	mouseEnterMain();
-	document.getElementsByTagName("body")[0].style.gridTemplateColumns = 'auto 300px auto';
+	// Title
+	const title = document.getElementsByClassName('title')[0];
+	title.style.color = (entering) ? 'rgb(156 230 255)' : '#50d3ff';
+	title.style.bottom = (entering) ? 'unset' : '100%';
+	title.style.top = (entering) ? -main.getBoundingClientRect().top + 'px' : '-55px';
+	title.style.padding = (entering) ? '-10px' : '0px';
 }
 
 function mouseEnterSubmit () {

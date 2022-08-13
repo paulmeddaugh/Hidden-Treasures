@@ -17,7 +17,7 @@
 	
 	if (!$result) {
 		print "Error - the query could not be executed" . 
-		mysqli_error();
+		mysqli_error($db);
 		exit;
 	}
 	

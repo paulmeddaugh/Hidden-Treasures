@@ -21,6 +21,7 @@ main {
 	background: var(--background-main);
 	box-sizing: border-box;
 	border: 2px solid black;
+	position: relative;
 }
 
 div {
@@ -50,7 +51,7 @@ input.text {
 
 input[type="submit"] {
 	font-family: Corbel Light; 
-	background-color: #0CAC25; /* mediumspringgreen */
+	background-color: #0CAC25;
    	color: white; 
 	border-color: #0CAC25;
     font-style: bold;
@@ -68,23 +69,43 @@ a {
 /* divs that cover the background image in the remaining space other than <main> */
 #top, #right, #bottom, #left {
 	background-color: white;
+	transition: .35s ease-in-out;
+	pointer-events: auto;
 }
 #left {
-	grid-row-start: 1;
-	grid-row-end: 4;
+	grid-row-start: 2;
+	grid-row-end: 3;
 }
 #top {
-	grid-column-start: 2;
+	grid-column-start: 1;
 	grid-column-end: 4;
 }
 #bottom {
-	grid-column-start: 2;
+	grid-column-start: 1;
 	grid-column-end: 4;
 }
+
+body:hover > div { /* Selects #top, #left, #bottom, #right when hovering any of them */
+	opacity: 0;
+}
+
+body:hover > div:not(:hover) { /* Selects #top, #left, #bottom, #right div not being hovered */
+	opacity: 1;
+}
+
+main:hover {
+	border: 2px solid transparent;
+}
+
 .title { /* Hidden Fields Title */
+	pointer-events: none;
 	position: absolute;
-	padding: 10px;
-	top: 0%;
-	font: italic 28pt Corbel Light;
+	bottom: 100%;
+	top: -55px;
+	left: 6%;
+	font: italic 28pt Corbel;
 	color: #50d3ff;
+	margin: 5px 0px;
+	transition: .7s ease;
+	z-index: 2;
 }

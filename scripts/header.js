@@ -36,7 +36,7 @@ headerTemplate.innerHTML = `
   </style>
   
   <div class="header">
- 		<a class = "siteTitle" href="../index.html"> Hidden Fields </a>
+ 		<a class = "siteTitle" href="../index.html"> Hidden Treasures </a>
 		<div>
 			<a href="addInventory.html">Add Something</a>
 			<a href="SomethingToSell.html">Sell Something</a>
