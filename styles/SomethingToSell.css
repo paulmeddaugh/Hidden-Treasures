@@ -53,3 +53,14 @@ p {
 	font-size: 12pt;
 	max-width: 600px;
 }
+
+/* Chrome, Safari, Edge, Opera */
+.disableArrowSpinners::-webkit-outer-spin-button, .disableArrowSpinners::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+.disableArrowSpinners {
+	-moz-appearance: textfield;
+}

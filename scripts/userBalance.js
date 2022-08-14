@@ -44,7 +44,9 @@ function chkEmpty(){
 				const result = xhr.responseText;
 				alert(result);
 				console.log(result);
-				if (result.match(/Money added!/g)){
+				if (result.match(/Money added!/g)) {
+					sessionStorage.setItem('balance', 
+						Number(sessionStorage.getItem('balance')) + Number(moneyToAdd));
 					window.open('../pages/AccountInformation.html', '_self');
 				}
 			}
