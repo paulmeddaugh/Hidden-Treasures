@@ -109,3 +109,10 @@ main:hover {
 	transition: .7s ease;
 	z-index: 2;
 }
+
+main:hover .title {
+	color: rgb(156 230 255);
+	bottom: 'unset';
+	/* top is changed in login.js */
+	padding: -10px;
+}

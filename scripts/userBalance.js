@@ -1,5 +1,4 @@
 var user = sessionStorage.getItem("uid");
-console.log("user = " + user);
 
 function check(EleId, corForm){
 	var varSlice;
@@ -33,22 +32,16 @@ function chkEmpty(){
 		tf = false;
 		alert("Box(s) is empty cannot proceed");
 		document.getElementById("balance").focus();
-		document.getElementById("balance").select();
-	}else{
-		
-		var params;
+	} else {
 		
 		var moneyToAdd = document.getElementById("balance");
 		
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../php/submitBalance.php", true);
-		
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		
-			xhr.onreadystatechange = function () {
-			
+		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && xhr.status == 200) {
-				var result = xhr.responseText;
+				const result = xhr.responseText;
 				alert(result);
 				console.log(result);
 				if (result.match(/Money added!/g)){
@@ -57,7 +50,7 @@ function chkEmpty(){
 			}
 		}
 		
-		params = "moneyToAdd="+moneyToAdd.value+"&idUser="+user;
+		const params = "moneyToAdd=" + moneyToAdd.value + "&idUser=" + user;
 		xhr.send(params);
 	}
 	
