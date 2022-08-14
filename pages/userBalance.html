@@ -14,7 +14,7 @@
 		<link rel="icon" href="./resources/icon.png">
 		<script src="../scripts/userBalance.js"></script>
 	</head>
-	<body onload = "displayUser()">
+	<body>
 
 		<div id = "menuAndInfoBar"></div>
 
@@ -22,7 +22,7 @@
 			Please add the total amount of money to be added to your balance.
 		</h3>
 		
-		<form onsubmit="chkEmpty()" action="javascript:OpenWindow()" method="post">
+		<form onsubmit="chkEmpty()" method="POST">
 
 			<p class="info">
 				<label for="balance"> Amount:&nbsp; </label>

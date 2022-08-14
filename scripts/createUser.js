@@ -1,214 +1,224 @@
 function _(x) {
-return document.getElementById(x);
+	return document.getElementById(x);
 }
 
-function check(EleId, corForm){
-		var varSlice;
-		if(corForm && EleId.value.length < 27){
-			return 0;
-		}
-	else{
-		if(EleId.value.length != 0){
+function check(EleId, corForm) {
+	var varSlice;
+	if (corForm && EleId.value.length < 27) {
+		return false;
+	} else {
+		if (EleId.value.length != 0) {
 			varSlice = EleId.value.slice(0,0);
 			EleId.value = varSlice;
 			EleId.focus();
-			EleId.select();
-			return 1;
+			return true;
 		}
-	}	
+	}
+}
+	
+function chkEmail(alertError = true) {
+	var email = document.getElementById("email");
+
+	checkEmpty(email);
+	var corForm = /^[a-zA-Z0-9@.]*$/.test(email.value);
+	var match = /[.]/.test(email.value);
+	var match2 = /[@]/.test(email.value);
+
+	if (check(email,corForm) == 1) {
+		if (alertError) alert("Please enter a valid email.");
+		return false;
+	}
+	if (check(email,match) == 1) {
+		if (alertError) alert("Please include a '.' ");
+		return false;
+	}
+	if (check(email,match2) == 1) {
+		if (alertError) alert("Please include a '@' ");
+		return false;
+	}
+
+	return true;
+}
+
+function chkName(alertError = true) {
+	var name = document.getElementById("name");
+
+	checkEmpty(name);
+	var corForm = /^[a-zA-Z ]*$/.test(name.value);
+
+	if (check(name,corForm) == 1) {
+		if (alertError) alert("Please enter a valid name.");
+		return false;
 	}
 	
-	function chkEmail(){
-		var email = document.getElementById("email");
-		var corForm = /^[a-zA-Z0-9@.]*$/.test(email.value);
-		var match = /[.]/.test(email.value);
-		var match2 = /[@]/.test(email.value);
-		if (check(email,corForm) == 1){
-			alert("Please enter a valid Email");
-		}
-		if(check(email,match) == 1){
-			alert("Please include a '.' ");
-		}
-		if(check(email,match2) == 1){
-			alert("Please include a '@' ");
-		}
-		console.log("Email: " + email.value);
+	return true;
+}
+function chkUSN(alertError = true) {
+	var usn = document.getElementById("usn");
+
+	checkEmpty(usn);
+	var corForm = /^[a-zA-Z0-9@-_$]*$/.test(usn.value);
+
+	if (check(usn,corForm) == 1) {
+		if (alertError) alert("Please enter a valid username.");
+	}
+
+	return true;
+}
+function chkPassword(alertError = true) {
+	var pwd = document.getElementById("pwd");
+	checkEmpty(pwd);
+
+	var pwdS;
+	if (pwd.value.length > 15) {
+		if (alertError) alert("Password cannot be over 15 characters.");
+		pwdS = pwd.value.slice(0,0);
+		document.getElementById("pwd").value = pwdS;
+		document.getElementById("pwd").focus();
+		return false;
+	} else if (pwd.value.length < 8 && pwd.value.length != 0) {
+		if (alertError) alert("Password cannot be less than 8 characters.");
+		pwdS = pwd.value.slice(0,0);
+		document.getElementById("pwd").value = pwdS;
+		document.getElementById("pwd").focus();
+		return false;
+	}
+
+	return true;
+}
+
+function chkREpwd(alertError = true) {
+	var repwd = document.getElementById("repwd");
+	var pwd = document.getElementById("pwd");
+	var repwdS;
+	var pwdS;
+	if (repwd.value != pwd.value && repwd.value.length != 0) {
+		if (alertError) alert("Passwords do not match!");
+		repwdS = repwd.value.slice(0,0);
+		pwdS = pwd.value.slice(0,0);
+		document.getElementById("repwd").value = repwdS;
+		document.getElementById("pwd").value = pwdS;
+		document.getElementById("pwd").focus();
+		return false;
+	}
+
+	return true;
+}
+function chkRemind(alertError = true) {
+	var rem = document.getElementById("reminder");
+
+	checkEmpty(rem);
+	var remS;
+	if (rem.value.length > 45) {
+		if (alertError) alert("Reminder cannot be over 45 characters");
+		remS = rem.value.slice(0,0);
+		document.getElementById("reminder").value = remS;
+		document.getElementById("reminder").focus();
+		return false;
+	} 
+	
+	return true;
+}
+function chkBalance(alertError = true) {
+	var balance = document.getElementById("balance");
+	var corForm = /^[0-9]*$/.test(balance.value);
+
+	if (checkEmpty(balance, false)) balance.value = 0;
+	
+	if (check(balance,corForm) == 1) {
+		if (alertError) alert("Please enter only numbers.");
+		var balS = balance.value.slice(0,0);
+		document.getElementById("balance").value = balS;
+		document.getElementById("balance").focus();
+		return false;
 	}
 	
-	function chkName(){
-		var name = document.getElementById("name");
-		var corForm = /^[a-zA-Z ]*$/.test(name.value);
-		if (check(name,corForm) == 1){
-			alert("Please enter a valid Name");
-		}
-		console.log("Name: " + name.value);
-	}
-	function chkUSN(){
-		var usn = document.getElementById("usn");
-		var corForm = /^[a-zA-Z0-9@-_$]*$/.test(usn.value);
-		if (check(usn,corForm) == 1){
-			alert("Please enter a valid Username");
-		}
-		console.log("Username: " + usn.value);
-	}
-	function chkPassword(){
-		var pwd = document.getElementById("pwd");
-		var pwdS;
-		if(pwd.value.length > 15){
-			alert("Password cannot be over 15 characters");
-			pwdS = pwd.value.slice(0,0);
-			document.getElementById("pwd").value = pwdS;
-			document.getElementById("pwd").focus();
-			document.getElementById("pwd").select();
-		} else if(pwd.value.length < 8 && pwd.value.length != 0){
-			alert("Password cannot be less than 8 characters");
-			pwdS = pwd.value.slice(0,0);
-			document.getElementById("pwd").value = pwdS;
-			document.getElementById("pwd").focus();
-			document.getElementById("pwd").select();
-		}
-		console.log("Password: " + pwd.value);
+	if (balance.value < 1 || balance.value > 1001) {
+		if (alertError) alert("Balance must be less than 1001 and greater than 0.");
+		var balS = balance.value.slice(0,0);
+		document.getElementById("balance").value = balS;
+		document.getElementById("crtAcc").focus();
+		return false;
 	}
 	
-	function chkREpwd(){
-		var repwd = document.getElementById("repwd");
-		var pwd = document.getElementById("pwd");
-		var repwdS;
-		var pwdS;
-		if(repwd.value != pwd.value && repwd.value.length != 0){
-			alert("Passwords do not match!");
-			repwdS = repwd.value.slice(0,0);
-			pwdS = pwd.value.slice(0,0);
-			document.getElementById("repwd").value = repwdS;
-			document.getElementById("pwd").value = pwdS;
-			document.getElementById("pwd").focus();
-			document.getElementById("pwd").select();
-		}
-		console.log("rePassword: " + repwd.value);
+	return true;
+}
+
+function checkEmpty(x, alertError = true) {
+	if (x.value == "") {
+		if (alertError) alert("Input cannot be empty.");
+		return true;
 	}
-	function chkRemind(){
-		var rem = document.getElementById("reminder");
-		var remS;
-		if(rem.value.length > 45){
-			alert("Reminder cannot be over 45 characters");
-			remS = rem.value.slice(0,0);
-			document.getElementById("reminder").value = remS;
-			document.getElementById("reminder").focus();
-			document.getElementById("reminder").select();
-		} 
-		console.log("Reminder: " + rem.value);
+
+	return false;
+}
+
+function chkEmpty() {
+	var error = "", errorObject = null;
+	
+	var email = document.getElementById("email");
+	var name = document.getElementById("name");
+	var usn = document.getElementById("usn");
+	var pwd = document.getElementById("pwd");
+	var repwd = document.getElementById("repwd");
+	var rem = document.getElementById("reminder");
+	var bal = document.getElementById("balance");
+
+	// Builds error message if error
+	if (chkEmail(false)) {
+		error = "Please enter a valid email.\n";
+		errorObject = email;
 	}
-	function chkBalance(){
-		var balance = document.getElementById("balance");
-		var corForm = /^[0-9]*$/.test(balance.value);
+	if (chkName(false)) {
+		error += "Please enter a valid name.\n";
+		if (!errorObject) errorObject = name;
+	}
+	if (chkUSN(false)) {
+		error += "Please enter a valid username.\n";
+		if (!errorObject) errorObject = usn;
+	}
+	if (chkPassword(false)) {
+		error += "Please enter a valid password.\n";
+		if (!errorObject) errorObject = pwd;
+	}
+	if (chkREpwd(false)) {
+		error += "Please enter a valid re-password.\n";
+		if (!errorObject) errorObject = repwd;
+	}
+	if (chkRemind(false)) {
+		error += "Please enter a valid reminder.\n";
+		if (!errorObject) errorObject = rem;
+	}
+	if (chkBalance(false)) {
+		error += "Please enter a valid balance.\n";
+		if (!errorObject) errorObject = bal;
+	}
+
+	if (error) { // Invalid
+		alert(error);
+		errorObject.focus();
+		return false;
+
+	} else { // Valid
+		var params;
 		
-		if (check(balance,corForm) == 1){
-			alert("Please enter only numbers");
-			var balS = balance.value.slice(0,0);
-			document.getElementById("balance").value = balS;
-			document.getElementById("balance").focus();
-			document.getElementById("balance").select();
-		}
-		
-		if(balance.value < 1 || balance.value > 1001){
-			alert("Balance must be less than 1001 and greater than 0");
-			var balS = balance.value.slice(0,0);
-			document.getElementById("balance").value = balS;
-			document.getElementById("crtAcc").focus();
-			document.getElementById("crtAcc").select();
-		}
-		console.log("Balance: " + balance.value);
-	}
-	
-	function isEmpty(x){
-		if(x.value == ""){
-			alert("Box(s) is empty cannot proceed");
-		}
-	}
-	
-	function chkEmpty(){
-		var tf = true;
-		
-		var email = document.getElementById("email");
-		var name = document.getElementById("name");
-		var usn = document.getElementById("usn");
-		var pwd = document.getElementById("pwd");
-		var repwd = document.getElementById("repwd");
-		var rem = document.getElementById("reminder");
-		var bal = document.getElementById("balance");
-		var corForm = /^[0-9]*$/.test(balance.value);
-		
-		if(email.value == "" && tf != false){
-			tf = false;
-			alert("Box(s) is empty cannot proceed");
-			document.getElementById("email").focus();
-			document.getElementById("email").select();
-		}else if(name.value == "" && tf != false){
-			tf = false;
-			alert("Box(s) is empty cannot proceed");
-			document.getElementById("name").focus();
-			document.getElementById("name").select();
-		}else if (usn.value == "" && tf != false){
-			tf = false;
-			alert("Box(s) is empty cannot proceed");
-			document.getElementById("usn").focus();
-			document.getElementById("usn").select();
-		}else if(pwd.value =="" && tf != false){
-			tf = false;
-			alert("Box(s) is empty cannot proceed");
-			document.getElementById("pwd").focus();
-			document.getElementById("pwd").select();
-		}else if (repwd.value == "" && tf != false){
-			alert("Box(s) is empty cannot proceed");
-			tf = false;
-			document.getElementById("repwd").focus();
-			document.getElementById("repwd").select();
-		}
-		else if(rem.value == "" && tf != false){
-			alert("Box(s) is empty cannot proceed");
-			tf = false;
-			document.getElementById("reminder").focus();
-			document.getElementById("reminder").select();
-		}else if(bal.value == "" && tf != false){
-			alert("Box(s) is empty cannot proceed");
-			tf = false;
-			document.getElementById("balance").focus();
-			document.getElementById("balance").select();
-		}else if (check(balance,corForm) == 1){
-			alert("Please enter only numbers");
-			var balS = balance.value.slice(0,0);
-			document.getElementById("balance").value = balS;
-			document.getElementById("balance").focus();
-			document.getElementById("balance").select();
-		}else if(balance.value < 1 || balance.value > 1001){
-			alert("Balance must be less than 1001 and greater than 0");
-			var balS = balance.value.slice(0,0);
-			document.getElementById("balance").value = balS;
-			document.getElementById("crtAcc").focus();
-			document.getElementById("crtAcc").select();
-		}else{
-			var params;
-			
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "../php/createUser.php", true);
-			
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			
-			 xhr.onreadystatechange = function () {
-			 if (xhr.readyState == 4 && xhr.status == 200) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../php/createUser.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
 				var result = xhr.responseText;
 				alert(result);
 				console.log(result);
-				if(result.match(/User created!/g)){
+				if (result.match(/User created!/g)) {
 					window.open('../index.html', '_self');
 				}
-				
-				}
+			
 			}
-			 params = "email="+email.value+"&name="+name.value+"&usn="+usn.value+"&pwd="+pwd.value+"&rem="+rem.value+"&bal="+bal.value;
-			 xhr.send(params);
 		}
-	    
-		return tf;
-		
+		params = "email="+email.value+"&name="+name.value+"&usn="+usn.value+"&pwd="+pwd.value+"&rem="+rem.value+"&bal="+bal.value;
+		xhr.send(params);
 	}
+	
+	return false;
+}

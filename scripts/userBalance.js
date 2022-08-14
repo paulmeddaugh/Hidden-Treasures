@@ -1,10 +1,6 @@
 var user = sessionStorage.getItem("uid");
 console.log("user = " + user);
 
-function displayUser() {
-	
-}
-
 function check(EleId, corForm){
 	var varSlice;
 	if (corForm && EleId.value <= 1000) {
@@ -61,10 +57,9 @@ function chkEmpty(){
 			}
 		}
 		
-			params = "moneyToAdd="+moneyToAdd.value+"&idUser="+user;
-			xhr.send(params);
+		params = "moneyToAdd="+moneyToAdd.value+"&idUser="+user;
+		xhr.send(params);
 	}
 	
-	return tf;
-	
+	return false;
 }

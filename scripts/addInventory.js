@@ -28,86 +28,97 @@ function displayUser(){
 	xhr.send();
 }
 
-function chkIname() {
+function chkIname(alertError = true) {
 	var item = document.getElementById("ItemName");
+	checkEmpty(item);
 	var itemS;
 	if (item.value.length > 22) {
-		alert("Item name cannot be over 22 characters");
+	 	if (alertError) alert("Item name cannot be over 22 characters");
 		itemS = item.value.slice(0,0);
 		document.getElementById("ItemName").value = itemS;
 		document.getElementById("ItemName").focus();
-	} 
-	console.log("Item name:" + item.value);
+		return false;
+	}
+
+	return true;
 }
 	
-function chkIdes(){
+function chkIdes(alertError) {
 	var des =  document.getElementById("itemDes");
+	checkEmpty(des);
 	var desS;
 	if (des.value.length > 37) {
-		alert("Item description cannot be over 37 characters");
+		if (alertError) alert("Item description cannot be over 37 characters.");
 		desS = des.value.slice(0,0);
 		document.getElementById("itemDes").value = desS;
 		document.getElementById("itemDes").focus();
-		document.getElementById("itemDes").select();
-	} 
-	console.log("Item description:" + des.value);
+		return false;
+	}
+
+	return true;
 }
 	
-function chkQuantity(event){
-	var quan =  document.getElementById("myNumber");
+function chkQuantity(event, alertError = true) {
+	var quan = document.getElementById("myNumber");
+	checkEmpty(quan);
 	var quanS;
 	if (quan.value > 1000) {
-		alert("Quantity cannot exceed 1000 items");
-		quanS = quan.value.slice(0,0);
+		if (alertError) alert("Quantity cannot exceed 1000 items.");
+		quanS = quan.value.slice(0, 0);
 		document.getElementById("myNumber").value = quanS;
 		document.getElementById("myNumber").focus();
-		document.getElementById("myNumber").select();
-		event.preventDefault();
+		if (event) event.preventDefault();
+		return false;
 	} 
 	if (quan.value < 0) {
-		alert("Quantity cannot be negative");
+		if (alertError) alert("Quantity cannot be negative.");
 		quanS = quan.value.slice(0,0);
 		document.getElementById("myNumber").value = quanS;
 		document.getElementById("myNumber").focus();
-		document.getElementById("myNumber").select();
-		event.preventDefault();
+		if (event) event.preventDefault();
+		return false;
+	}
+
+	return true;
+}
+
+function checkEmpty (x, alertError = true) {
+	if (x?.value == '') {
+		if (alertError) alert("Input cannot be empty.");
 	}
 }
+
 function clrPg() {
 	window.location.reload();
 }
 
 function chkEmpty(event) {
-	var tf = true;
+
+	let error = "", errorObject = null;
+
 	var iName = document.getElementById("ItemName");
 	var des = document.getElementById("itemDes");
 	var quan = document.getElementById("myNumber");
 	
-	if (iName.value == "") {
-		tf = false;
-		alert("Box(s) is empty cannot proceed");
-		document.getElementById("ItemName").focus();
-	} else if (des.value == "") {
-		alert("Box(s) is empty cannot proceed");
-		tf = false;
-		document.getElementById("itemDes").focus();
-	} else if (quan.value == "") {
-		alert("Box(s) is empty cannot proceed");
-		tf = false;
-		document.getElementById("myNumber").focus();
-	} else if (quan.value < 0) {
-		alert("Quantity cannot be negative");
-		quanS = quan.value.slice(0,0);
-		document.getElementById("myNumber").value = quanS;
-		document.getElementById("myNumber").focus();
-		event.preventDefault();
-	} else if (quan.value > 1000) {
-		alert("Quantity cannot exceed 1000 items");
-		quanS = quan.value.slice(0,0);
-		document.getElementById("myNumber").value = quanS;
-		document.getElementById("myNumber").focus();
-		event.preventDefault();
-	} else {
+	if (chkIname(false)) {
+		error += "Please enter a valid item name.";
+		errorObject = iName;
+	}
+	if (chkIdes(false)) {
+		error += "Please enter a valid item description.";
+		if (!errorObject) errorObject = des;
+	}
+	if (chkQuantity(false)) {
+		error += "Please enter a valid item name.";
+		errorObject = iName;
+	}
+
+	if (error) { // Invalid
+		alert(error);
+		errorObject.focus();
+		return false;
+
+	} else { // Valid
 		var params;
 		
 		var xhr = new XMLHttpRequest();
