@@ -1,50 +1,60 @@
 var user;
 
 function chkIfAllFieldsEntered(event) {
+
+	let error = "", errorObject;
 	var username = document.getElementById("Username");
 	var password = document.getElementById("Password");
 	
-	if (username.value == "" || password.value == "") {
-		if (username.value == "" && password.value == "") {
-			alert("Please enter both your username and password.");
-			return false;
-		} else if (username.value != "" && password.value == "") {
-			alert("Please enter your password.");
-			password.focus();
-			return false;
-		} else if (username.value == "" && password.value != "") {
-			alert("Please enter your username.");
-			username.focus();
-			return false;
-		}
-	} else {
-		//database query
-		var xhr = new XMLHttpRequest();
-		xhr.onload = function () {
-			let result = xhr.responseText;
-			let jsonData = JSON.parse(result);
-			let rowCount = jsonData.length;
-		
-			if (rowCount > 0) {
-				for (var i = 0; i < rowCount; i++) {
-					var rowdata = jsonData[i];
-				}
+	if (username.value == "") {
+		error = "Username cannot be empty.";
+		errorObject = username;
+	}
+	if (password.value == "") {
+		error = (error == "") ? "Password cannot be empty." : "Both username and password are empty.";
+		errorObject = password;
+	}
+	
+	if (error != "") { // Invalid
+		alert(error);
+		errorObject.focus();
+		return false;
 
-				if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
-						password.value == rowdata.password) {
-					sessionStorage.setItem("uid", rowdata.uid);	
-					sessionStorage.setItem('username', rowdata.username);
-					sessionStorage.setItem('nameu', rowdata.nameu);
-					sessionStorage.setItem('balance', rowdata.balance);
-					window.location.href = "./pages/exchange.html";
-				} else {
-					alert("Invalid username/password.");
+	} else { // Valid
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "./php/Login.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				let result = xhr.responseText, jsonData;
+				try {
+					jsonData = JSON.parse(result);
+				} catch {
+					alert(result);
+					return false;
+				}
+				
+				let rowCount = jsonData.length;
+			
+				if (rowCount > 0) {
+					for (var i = 0; i < rowCount; i++) {
+						var rowdata = jsonData[i];
+					}
+
+					if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
+							password.value == rowdata.password) {
+						sessionStorage.setItem("uid", rowdata.uid);	
+						sessionStorage.setItem('username', rowdata.username);
+						sessionStorage.setItem('nameu', rowdata.nameu);
+						sessionStorage.setItem('balance', rowdata.balance);
+						window.location.href = "./pages/exchange.html";
+					} else {
+						alert("Invalid username or password.");
+					}
 				}
 			}
 		}
-		xhr.open("GET", "./php/Login.php?username=" + username.value + "&password="+ password.value, true);
-		xhr.send();
-		return false;
+		xhr.send(("username=" + username.value + "&password="+ password.value));
 	}
 }
 

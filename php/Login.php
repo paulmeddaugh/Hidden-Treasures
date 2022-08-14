@@ -1,7 +1,7 @@
 
  <?php
-	$username = $_GET["username"];
-    $password = $_GET["password"]; 
+	$username = $_POST["username"];
+    $password = $_POST["password"]; 
 	
 	// Connect to MySQL
 	$db = mysqli_connect("localhost", "root", "", "semp");

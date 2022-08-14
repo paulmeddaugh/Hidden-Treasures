@@ -1,5 +1,4 @@
 var user = sessionStorage.getItem("uid");
-console.log("user = " + user);
 
 var priceA = [];
 var sellerIDs = [];
@@ -250,9 +249,7 @@ function chkQuantity(quan, rownum) {
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "../php/buyItems.php", true);
-			
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			
 			 xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
 					var result = xhr.responseText;
