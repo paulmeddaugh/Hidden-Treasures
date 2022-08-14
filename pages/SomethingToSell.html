@@ -6,9 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="../styles/SomethingToSell.css">
 		<link rel="stylesheet" href="../styles/menu.css">
-		<link rel="icon" href="./resources/icon.png">
-		<script src="../scripts/header.js"></script>
-		<script src="../scripts/infoBox.js"></script>
+		<link rel="icon" href="../resources/icon.png">
+		<script src="../scripts/components/header.js"></script>
+		<script src="../scripts/components/infoBox.js"></script>
 		<script src = "../scripts/SomethingToSell.js"></script>
 	</head>
 	<body onload = "displayUser()">
@@ -17,15 +17,15 @@
 			<info-box-component title="Sell Something"></info-box-component>
 
 			<div class="pageContent">
-				<form action = "" onsubmit = "SubmitData(event)">
-
+				<form onsubmit = "SubmitData(event)">
 					<div class="tableContainer">
 						<table id = "table">
 							<tr>
 								<th> Item </th>
 								<th> Description </th>
-								<th> Quantity Available </th>
-								<th> Quantity On Market </th>
+								<th> Owned </th>
+								<th> Not On Market </th>
+								<th> Quantity To Sell </th>
 								<th> Price To Sell </th>
 							</tr>
 							<tr>
@@ -34,6 +34,7 @@
 								<td>Nada</td>
 								<td>Rein</td>
 								<td>Nichts</td>
+								<td>没有</td>
 							</tr>
 						</table>
 					</div>
