@@ -12,7 +12,7 @@
 	// Submit the query for the list of folders
 	$query = "SELECT semp.Sells.item_idInventory, semp.Sells.quantity, semp.Sells.price
 			  FROM semp.Sells
-			  WHERE semp.Sells.seller_idUser = $user;";
+			  WHERE semp.Sells.seller_idUser = '$user'";
 	
 	$result = mysqli_query($db, $query);
 	
@@ -35,6 +35,7 @@
 			// names are what you want to use; but the indexes are from the DB
 			$x->Iid = $row["item_idInventory"];
 			$x->quan = $row["quantity"];
+			$x->price = $row["price"];
 			
 			$myarray[$index] = $x;
 			
