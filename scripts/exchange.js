@@ -1,5 +1,4 @@
 var user = sessionStorage.getItem("uid");
-console.log("user = " + user);
 
 var priceA = [];
 var sellerIDs = [];

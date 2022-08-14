@@ -21,43 +21,41 @@ function chkIfAllFieldsEntered(event) {
 		return false;
 
 	} else { // Valid
-		login();
-	}
-}
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "./php/Login.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				let result = xhr.responseText, jsonData;
+				try {
+					jsonData = JSON.parse(result);
+				} catch {
+					alert(result);
+					return false;
+				}
+				
+				let rowCount = jsonData.length;
+			
+				if (rowCount > 0) {
+					for (var i = 0; i < rowCount; i++) {
+						var rowdata = jsonData[i];
+					}
 
-function login() {
-	var xhr = new XMLHttpRequest();
-	xhr.onload = function () {
-		let result = xhr.responseText, jsonData;
-		try {
-			jsonData = JSON.parse(result);
-		} catch {
-			alert(result);
-			return false;
-		}
-		
-		let rowCount = jsonData.length;
-	
-		if (rowCount > 0) {
-			for (var i = 0; i < rowCount; i++) {
-				var rowdata = jsonData[i];
-			}
-
-			if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
-					password.value == rowdata.password) {
-				sessionStorage.setItem("uid", rowdata.uid);	
-				sessionStorage.setItem('username', rowdata.username);
-				sessionStorage.setItem('nameu', rowdata.nameu);
-				sessionStorage.setItem('balance', rowdata.balance);
-				window.location.href = "./pages/exchange.html";
-			} else {
-				alert("Invalid username or password.");
+					if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
+							password.value == rowdata.password) {
+						sessionStorage.setItem("uid", rowdata.uid);	
+						sessionStorage.setItem('username', rowdata.username);
+						sessionStorage.setItem('nameu', rowdata.nameu);
+						sessionStorage.setItem('balance', rowdata.balance);
+						window.location.href = "./pages/exchange.html";
+					} else {
+						alert("Invalid username or password.");
+					}
+				}
 			}
 		}
+		xhr.send(("username=" + username.value + "&password="+ password.value));
 	}
-	xhr.open("GET", "./php/Login.php?username=" + username.value + "&password="+ password.value, true);
-	xhr.send();
-	return false;
 }
 
 /** Script for difficult styling when hovering in main.
