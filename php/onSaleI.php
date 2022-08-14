@@ -10,7 +10,7 @@
 	}
 	
 	// Submit the query for the list of folders
-	$query = "SELECT semp.Sells.item_idInventory, semp.Sells.quantity
+	$query = "SELECT semp.Sells.item_idInventory, semp.Sells.quantity, semp.Sells.price
 			  FROM semp.Sells
 			  WHERE semp.Sells.seller_idUser = $user;";
 	
