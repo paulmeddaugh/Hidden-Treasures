@@ -7,7 +7,7 @@ function displayUser() {
 	
 	let j = 0;
 	
-	// AJAX for diplaying all items being sold
+	// AJAX for diplaying items in inventory
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
@@ -101,8 +101,10 @@ function displayUser() {
 							
 							table.rows[rowIndex].cells[3].innerHTML = quanAvailable;
 							// Removes items that have 0 or less quantity available to sell
-							if (quanAvailable < 0 || quanAvailable == 0) {
-								table.deleteRow(rowIndex);
+							if (quanAvailable <= 0) {
+								table.rows[rowIndex].cells[3].innerHTML = '0';
+								table.rows[rowIndex].cells[4].children[0].setAttribute('disabled');
+								table.rows[rowIndex].cells[5].children[0].setAttribute('disabled');
 							}
 						}
 					}
