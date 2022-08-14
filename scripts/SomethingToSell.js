@@ -1,70 +1,87 @@
-var user = sessionStorage.getItem("uid");
+let user = sessionStorage.getItem("uid");
 
-var x = [];
-var itemIds = Array();
+let x = [];
+let itemIds = Array();
 
 function displayUser() {
 	
-	var j = 0;
+	let j = 0;
 	
 	// AJAX for diplaying all items being sold
-	var xhr = new XMLHttpRequest();
+	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var result = xhr.responseText;
-			
-			var jsonData = JSON.parse(result);
-			var rowCount = jsonData.length;
+
+			let result = xhr.responseText, jsonData;
+			try {
+				jsonData = JSON.parse(result);
+			} catch {
+				alert(result);
+				console.log(result);
+			}
+
+			let rowCount = jsonData.length;
 			
 			if (rowCount > 0) {
-				tstring = "<table><tr><th> Item </th><th> Description </th>";
-				tstring += "<th> Quantity<br />Available </th>";
-				tstring += "<th> Quantity<br />On Market </th>";
-				tstring += "<th> Price To Sell </th></tr> ";
+				// Table header
+				tstring = `<table><tr><th> Item </th><th> Description </th>
+							<th> Owned </th>
+							<th> Not On Market </th>
+							<th> Quantity To Sell </th>
+							<th> Price To Sell </th></tr>`;
 				for (var i = 0; i < rowCount; i++) {
 					var rowdata = jsonData[i];
 					if (rowdata.quan != 0) {
-						tstring += "<tr class=Item data-iid="+rowdata.Iid+"><td class=Name><i>"+rowdata.Iname+"</i></td>";
-						tstring += "<td class=Description>"+rowdata.descrip+"</td>";
-						tstring += "<td class=\"QuantityAvailable\">"+rowdata.quan+"</td>";
-						tstring += "<td align=center>";
-						tstring += "<input type=\"number\" value=\"0\" class=\"QuantityOnMarket\" min=\"0\"";
-						tstring += " onblur=\"chkIfNegative(event)\"></input></td>";
-						tstring += "<td align=center>$";
-						tstring += "<input type=\"number\" value = \"0\" min=\"0\" max=\"999\" class=\"Price\"";
-						tstring += "onblur=\"chkIfNegative(event)\"></input></td></tr>";
+						// Table row
+						tstring += `<tr class=Item data-iid=${rowdata.Iid}>
+								<td class=Name><i>${rowdata.Iname}</i></td>
+								<td class=Description>${rowdata.descrip}</td>
+								<td class=\"QuantityOwned\">${rowdata.quan}</td>
+								<td class=\"QuantityAvailable\">${rowdata.quan}</td>
+								<td align=center>
+								<input type=\"number\" value=\"0\" class=\"QuantityOnMarket\" min=\"0\"
+								onblur=\"chkIfNegative(event)\"></input></td>
+								<td align=center>$
+								<input type=\"number\" value = \"0\" min=\"0\" max=\"999\" class=\"Price\"
+								onblur=\"chkIfNegative(event)\"></input></td>
+							</tr>`;
 						
 						x[j] = rowdata.Iid;
 						j += 2;
 					}
 				}
-			tstring += "</table>";
-			document.getElementById("table").innerHTML = tstring;
+				tstring += "</table>";
+				document.getElementById("table").innerHTML = tstring;
 			}
 		}
 	}
 	xhr.open("GET", "../php/displayIown.php?user=" + user, false);
 	xhr.send();
 			 
-	// AJAX for determining qualifying items
-	var xh = new XMLHttpRequest();
+	// AJAX for getting items on market
+	const xh = new XMLHttpRequest();
 	xh.onreadystatechange = function () {
 		if (xh.readyState == 4 && xh.status == 200) {
-			var result = xh.responseText;
-				
-			var jsonData = JSON.parse(result);
+
+			let result = xh.responseText, jsonData;	
+			try {
+				jsonData = JSON.parse(result);
+			} catch {
+				console.log(result);
+			}
+
 			var rowCount = jsonData.length;
 			
-			//item will be a multidimensional array; first element, itemId, second, quantity
+			// Ttem will be a multidimensional array; first element, itemId, second, quantity
 			var itemSold = Array();
 				
 			if (rowCount > 0) {
 				
-				for (var i = 0; i < rowCount; i++) {
+				for (let i = 0; i < rowCount; i++) {
 					var rowdata = jsonData[i];
 					var isAlreadyUsed = false;
-					//goes through item array to see if same item already has other quantities on market
-					for (a = 0; a < itemSold.length; a++) {
+					// Goes through item array to see if same item already has other quantities on market
+					for (let a = 0; a < itemSold.length; a++) {
 						if (rowdata.Iid == itemSold[a][1]) {
 							itemSold[a][1] += rowdata.quan;
 							isAlreadyUsed = true;
@@ -74,16 +91,16 @@ function displayUser() {
 						itemSold.push([rowdata.Iid, rowdata.quan]);
 					}
 				}
-				//goes through every item in table to see if it has matching Iid's
-				for (rowIndex = 1; rowIndex < table.rows.length; rowIndex++) {
-					for (a = 0; a < itemSold.length; a++) {
-						//every item has a data-Iid attribute with its Iid. Checks if they're same
+				// Goes through every item in table to see if it has matching Iid's
+				for (let rowIndex = 1; rowIndex < table.rows.length; rowIndex++) {
+					for (let a = 0; a < itemSold.length; a++) {
+						// Every item that has a data-Iid attribute with its Iid, checks if they're same
 						if (Number(table.rows[rowIndex].getAttribute('data-iid')) == Number(itemSold[a][0])) {
-							var numOwned = Number(table.rows[rowIndex].cells[2].innerHTML);
+							var numOwned = Number(table.rows[rowIndex].cells[3].innerHTML);
 							var quanAvailable = numOwned - Number(itemSold[a][1]);
 							
-							table.rows[rowIndex].cells[2].innerHTML = quanAvailable;
-							//removes items that have 0 or less quantity available to sell
+							table.rows[rowIndex].cells[3].innerHTML = quanAvailable;
+							// Removes items that have 0 or less quantity available to sell
 							if (quanAvailable < 0 || quanAvailable == 0) {
 								table.deleteRow(rowIndex);
 							}
@@ -96,7 +113,7 @@ function displayUser() {
 	xh.open("GET", "../php/onSaleI.php?user=" + user, false);
 	xh.send();
 	
-	for (i = 0; i < table.rows.length - 1; i++) {
+	for (let i = 0; i < table.rows.length - 1; i++) {
 		itemIds[i + 1] = table.rows[i + 1].dataset.iid;
 	}
 }
