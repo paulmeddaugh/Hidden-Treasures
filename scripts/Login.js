@@ -12,7 +12,7 @@ function chkIfAllFieldsEntered(event) {
 	}
 	if (password.value == "") {
 		error = (error == "") ? "Password cannot be empty." : "Both username and password are empty.";
-		errorObject = password;
+		if (!errorObject) errorObject = password;
 	}
 	
 	if (error != "") { // Invalid
@@ -43,7 +43,7 @@ function chkIfAllFieldsEntered(event) {
 
 					if (username.value.toLowerCase() == rowdata.username.toLowerCase() &&
 							password.value == rowdata.password) {
-						sessionStorage.setItem("uid", rowdata.uid);	
+						sessionStorage.setItem("uid", rowdata.uid);
 						sessionStorage.setItem('username', rowdata.username);
 						sessionStorage.setItem('nameu', rowdata.nameu);
 						sessionStorage.setItem('balance', rowdata.balance);
@@ -56,6 +56,8 @@ function chkIfAllFieldsEntered(event) {
 		}
 		xhr.send(("username=" + username.value + "&password="+ password.value));
 	}
+
+	return false;
 }
 
 /** Script for difficult styling when hovering in main.
