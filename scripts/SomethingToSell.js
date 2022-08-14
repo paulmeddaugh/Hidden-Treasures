@@ -40,10 +40,10 @@ function displayUser() {
 								<td class=\"QuantityAvailable\">${rowdata.quan}</td>
 								<td align=center>
 								<input type=\"number\" value=\"0\" class=\"QuantityOnMarket\" min=\"0\"
-								onblur=\"chkIfNegative(event)\"></input></td>
+								onchange=\"chkIfNegative(event)\"></input></td>
 								<td align=center>$
 								<input type=\"number\" value = \"0\" min=\"0\" max=\"999\" class=\"Price\"
-								onblur=\"chkIfNegative(event)\"></input></td>
+								onchange=\"chkIfNegative(event)\"></input></td>
 							</tr>`;
 						
 						x[j] = rowdata.Iid;
@@ -72,7 +72,7 @@ function displayUser() {
 
 			var rowCount = jsonData.length;
 			
-			// Ttem will be a multidimensional array; first element, itemId, second, quantity
+			// Ttem will be a multidimensional array: first dimension - itemId, second - [id, quan, price]
 			var itemSold = Array();
 				
 			if (rowCount > 0) {
@@ -82,13 +82,13 @@ function displayUser() {
 					var isAlreadyUsed = false;
 					// Goes through item array to see if same item already has other quantities on market
 					for (let a = 0; a < itemSold.length; a++) {
-						if (rowdata.Iid == itemSold[a][1]) {
-							itemSold[a][1] += rowdata.quan;
+						if (rowdata.Iid == itemSold[a][0]) {
+							itemSold[a][1] += Number(rowdata.quan);
 							isAlreadyUsed = true;
 						}
 					}
 					if (isAlreadyUsed == false) {
-						itemSold.push([rowdata.Iid, rowdata.quan]);
+						itemSold.push([rowdata.Iid, Number(rowdata.quan), rowdata.price]);
 					}
 				}
 				// Goes through every item in table to see if it has matching Iid's
@@ -98,13 +98,17 @@ function displayUser() {
 						if (Number(table.rows[rowIndex].getAttribute('data-iid')) == Number(itemSold[a][0])) {
 							var numOwned = Number(table.rows[rowIndex].cells[3].innerHTML);
 							var quanAvailable = numOwned - Number(itemSold[a][1]);
+							let price = Number(itemSold[a][2]);
 							
 							table.rows[rowIndex].cells[3].innerHTML = quanAvailable;
+							table.rows[rowIndex].cells[5].children[0].value = price;
 							// Removes items that have 0 or less quantity available to sell
 							if (quanAvailable <= 0) {
 								table.rows[rowIndex].cells[3].innerHTML = '0';
-								table.rows[rowIndex].cells[4].children[0].setAttribute('disabled');
-								table.rows[rowIndex].cells[5].children[0].setAttribute('disabled');
+								for (let i = 4; i <= 5; i++) {
+									table.rows[rowIndex].cells[i].children[0].disabled = true;
+									table.rows[rowIndex].cells[i].children[0].classList.add('disableArrowSpinners');
+								}
 							}
 						}
 					}
@@ -124,20 +128,17 @@ function chkIfNegative (event) {
 	if (event.currentTarget.value < 0) {
 		alert("The number entered must be a positive number.");
 		event.currentTarget.focus();
-		event.currentTarget.select();
 		event.currentTarget.value = "0";
 	}
 	if (event.currentTarget.value == "") {
 		alert("A number must be entered.");
 		event.currentTarget.focus();
-		event.currentTarget.select();
 		event.currentTarget.value = "0";
 	}
 	if (event.currentTarget.className == "Price") {
 		if (Number(event.currentTarget.value) >= 1000) {
 			alert("Price must be less than $1,000.");
 			event.currentTarget.focus();
-			event.currentTarget.select();
 			event.currentTarget.value = "999";
 		}
 	}
@@ -158,7 +159,6 @@ function chkIfNegative (event) {
 	if (Number(onMarket[index].value) > Number(numOwned.innerHTML)) {
 		alert("You have more on the Market than you own.");
 		event.currentTarget.focus();
-		event.currentTarget.select();
 		event.currentTarget.value = numOwned.innerHTML;
 		//UpdateLeft(event);
 	}

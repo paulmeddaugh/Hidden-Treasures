@@ -3,16 +3,16 @@
   $user = $_GET["user"];
   
   // Connect to MySQL
-  	$db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
-	if (mysqli_connect_errno()) {
-		print "Connect failed: " . mysqli_connect_error();
-		exit();
-	}
-	
-	// Submit the query for the list of folders
-	$query = "SELECT Team4.Sells.item_idInventory, Team4.Sells.quantity
-			  FROM Team4.Sells
-			  WHERE Team4.Sells.seller_idUser = $user;";
+  $db = mysqli_connect("localhost", "root", "r23dFh5LbPNqJB", "Team4");
+  if (mysqli_connect_errno()) {
+	  print "Connect failed: " . mysqli_connect_error();
+	  exit();
+  }
+  
+  // Submit the query for the list of folders
+  $query = "SELECT Team4.Sells.item_idInventory, Team4.Sells.quantity, Team4.Sells.price
+			FROM Team4.Sells
+			WHERE Team4.Sells.seller_idUser = $user;";
 	
 	$result = mysqli_query($db, $query);
 	
@@ -35,6 +35,7 @@
 			// names are what you want to use; but the indexes are from the DB
 			$x->Iid = $row["item_idInventory"];
 			$x->quan = $row["quantity"];
+			$x->price = $row["price"];
 			
 			$myarray[$index] = $x;
 			
