@@ -46,7 +46,7 @@ function chkEmpty(){
 				console.log(result);
 				if (result.match(/Money added!/g)) {
 					sessionStorage.setItem('balance', 
-						Number(sessionStorage.getItem('balance')) + Number(moneyToAdd));
+						Number(sessionStorage.getItem('balance')) + Number(moneyToAdd.value));
 					window.open('../pages/AccountInformation.html', '_self');
 				}
 			}

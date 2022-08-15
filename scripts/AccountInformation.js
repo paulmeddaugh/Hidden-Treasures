@@ -11,7 +11,6 @@ function displayUser(){
 			var result = xhr.responseText;
 			
 			var jsonData = JSON.parse(result);
-			console.log(result);
 			var rowCount = jsonData.length;
 			
 			if (rowCount > 0) {
@@ -27,7 +26,6 @@ function displayUser(){
 				document.getElementsByTagName('info-box-component').balance = sessionStorage.getItem('balance');
 				tstring += "</table>";
 				document.getElementById("dispTable").innerHTML = tstring;
-				console.log(result);
 			}
 		}
 	}
@@ -41,7 +39,6 @@ function displayUser(){
 			var result = xh.responseText;
 					
 			var jsonData = JSON.parse(result);
-			console.log(result);
 			var rowCount = jsonData.length;
 					
 			if (rowCount > 0) {
@@ -55,7 +52,6 @@ function displayUser(){
 				}
 				txtstring += "</table>";
 				document.getElementById("dispTable2").innerHTML = txtstring;
-				console.log(result);
 			}
 		}
 	}
@@ -69,7 +65,6 @@ function displayUser(){
 			var result = x.responseText;
 			
 			var jsonData = JSON.parse(result);
-			console.log(result);
 			var rowCount = jsonData.length;
 			
 			if (rowCount > 0) {
@@ -83,7 +78,6 @@ function displayUser(){
 				}
 				txtstring += "</table>";
 				document.getElementById("dispTable3").innerHTML = txtstring;
-				console.log(result);
 			}
 		}
 	}
