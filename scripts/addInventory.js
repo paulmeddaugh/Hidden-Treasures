@@ -30,7 +30,6 @@ function displayUser(){
 
 function chkIname(alertError = true) {
 	var item = document.getElementById("ItemName");
-	checkEmpty(item);
 	var itemS;
 	if (item.value.length > 22) {
 	 	if (alertError) alert("Item name cannot be over 22 characters");
@@ -45,7 +44,6 @@ function chkIname(alertError = true) {
 	
 function chkIdes(alertError) {
 	var des =  document.getElementById("itemDes");
-	checkEmpty(des);
 	var desS;
 	if (des.value.length > 37) {
 		if (alertError) alert("Item description cannot be over 37 characters.");
@@ -60,7 +58,6 @@ function chkIdes(alertError) {
 	
 function chkQuantity(event, alertError = true) {
 	var quan = document.getElementById("myNumber");
-	checkEmpty(quan);
 	var quanS;
 	if (quan.value > 1000) {
 		if (alertError) alert("Quantity cannot exceed 1000 items.");
@@ -99,18 +96,23 @@ function chkEmpty(event) {
 	var iName = document.getElementById("ItemName");
 	var des = document.getElementById("itemDes");
 	var quan = document.getElementById("myNumber");
+
+	// Checks if inputs are empty
+	if (checkEmpty(iName, false) || checkEmpty(des, false) || checkEmpty(quan, false)) {
+		alert("Inputs cannot be empty.");
+	}
 	
-	if (chkIname(false)) {
-		error += "Please enter a valid item name.";
+	if (!chkIname(false)) {
+		error = "Please enter a valid item name.\n";
 		errorObject = iName;
 	}
-	if (chkIdes(false)) {
-		error += "Please enter a valid item description.";
+	if (!chkIdes(false)) {
+		error += "Please enter a valid item description.\n";
 		if (!errorObject) errorObject = des;
 	}
-	if (chkQuantity(false)) {
-		error += "Please enter a valid item name.";
-		errorObject = iName;
+	if (!chkQuantity(null, false)) {
+		error += "Please enter a valid item quantity.\n";
+		if (!errorObject) errorObject = quan;
 	}
 
 	if (error) { // Invalid

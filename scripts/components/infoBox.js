@@ -47,7 +47,7 @@ class InfoBox extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: 'closed' });
     shadowRoot.appendChild(infoBoxTemplate.content);
     shadowRoot.getElementById("title").innerHTML = this.getAttribute('title');
-    let withZeros = Number.parseFloat(Math.round(sessionStorage.getItem("balance")*100)/100).toFixed(2);
+    let withZeros = sessionStorage.getItem("balance").toLocaleString('en-US');
     shadowRoot.getElementById("bal").innerHTML = "Balance: $" + withZeros;
   }
   

@@ -19,7 +19,6 @@ function check(EleId, corForm) {
 function chkEmail(alertError = true) {
 	var email = document.getElementById("email");
 
-	checkEmpty(email);
 	var corForm = /^[a-zA-Z0-9@.]*$/.test(email.value);
 	var match = /[.]/.test(email.value);
 	var match2 = /[@]/.test(email.value);
@@ -43,7 +42,6 @@ function chkEmail(alertError = true) {
 function chkName(alertError = true) {
 	var name = document.getElementById("name");
 
-	checkEmpty(name);
 	var corForm = /^[a-zA-Z ]*$/.test(name.value);
 
 	if (check(name,corForm) == 1) {
@@ -56,7 +54,6 @@ function chkName(alertError = true) {
 function chkUSN(alertError = true) {
 	var usn = document.getElementById("usn");
 
-	checkEmpty(usn);
 	var corForm = /^[a-zA-Z0-9@-_$]*$/.test(usn.value);
 
 	if (check(usn,corForm) == 1) {
@@ -67,7 +64,6 @@ function chkUSN(alertError = true) {
 }
 function chkPassword(alertError = true) {
 	var pwd = document.getElementById("pwd");
-	checkEmpty(pwd);
 
 	var pwdS;
 	if (pwd.value.length > 15) {
@@ -107,7 +103,6 @@ function chkREpwd(alertError = true) {
 function chkRemind(alertError = true) {
 	var rem = document.getElementById("reminder");
 
-	checkEmpty(rem);
 	var remS;
 	if (rem.value.length > 45) {
 		if (alertError) alert("Reminder cannot be over 45 characters");
@@ -164,32 +159,41 @@ function chkEmpty() {
 	var rem = document.getElementById("reminder");
 	var bal = document.getElementById("balance");
 
+	// Checks if any are empty
+	if (checkEmpty(email, false) || checkEmpty(name, false) || checkEmpty(usn, false)
+		|| checkEmpty(pwd, false) || checkEmpty(repwd, false) || checkEmpty(rem, false)
+		|| checkEmpty(bal, false)) {
+		
+		alert("Inputs cannot be empty.");
+		return false;
+	}
+
 	// Builds error message if error
-	if (chkEmail(false)) {
+	if (!chkEmail(false)) {
 		error = "Please enter a valid email.\n";
 		errorObject = email;
 	}
-	if (chkName(false)) {
+	if (!chkName(false)) {
 		error += "Please enter a valid name.\n";
 		if (!errorObject) errorObject = name;
 	}
-	if (chkUSN(false)) {
+	if (!chkUSN(false)) {
 		error += "Please enter a valid username.\n";
 		if (!errorObject) errorObject = usn;
 	}
-	if (chkPassword(false)) {
+	if (!chkPassword(false)) {
 		error += "Please enter a valid password.\n";
 		if (!errorObject) errorObject = pwd;
 	}
-	if (chkREpwd(false)) {
+	if (!chkREpwd(false)) {
 		error += "Please enter a valid re-password.\n";
 		if (!errorObject) errorObject = repwd;
 	}
-	if (chkRemind(false)) {
+	if (!chkRemind(false)) {
 		error += "Please enter a valid reminder.\n";
 		if (!errorObject) errorObject = rem;
 	}
-	if (chkBalance(false)) {
+	if (!chkBalance(false)) {
 		error += "Please enter a valid balance.\n";
 		if (!errorObject) errorObject = bal;
 	}
