@@ -202,7 +202,8 @@ function chkqty() {
 			const xhr = new XMLHttpRequest();
 			xhr.open("POST", "../php/buyItems.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function () {
+			
+			 xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
 
 					const result = xhr.responseText;
