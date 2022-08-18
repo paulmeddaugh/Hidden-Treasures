@@ -37,7 +37,6 @@ function displayUser() {
 				for (var i = 0; i < rowCount; i++) {
 					var rowdata = jsonData[i];
 					if (rowdata.sellquan > 0) {
-						const j = priceA.length;
 						tstring += `
 							<tr>
 								<td><i> ${rowdata.Iname}</i></td>
