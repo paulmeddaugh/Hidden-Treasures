@@ -37,6 +37,7 @@ function displayUser() {
 				for (var i = 0; i < rowCount; i++) {
 					var rowdata = jsonData[i];
 					if (rowdata.sellquan > 0) {
+						const j = priceA.length;
 						tstring += `
 							<tr>
 								<td><i> ${rowdata.Iname}</i></td>
@@ -46,10 +47,10 @@ function displayUser() {
 								<td>${rowdata.sellquan}</td>
 								<td>
 									<input value=\"0\" type=number min=0 id=\"numToBuy\"
-									oninput=\"chkQuantity(${rowdata.sellquan + "," + j}")\">
+									oninput=\"chkQuantity(${rowdata.sellquan}, ${priceA.length})\">
 								</td>
 							</tr>`;
-						
+
 						priceA.push(rowdata.Sellprice);
 						sellerIDs.push(rowdata.sellId);
 						IidA.push(rowdata.Iid);
@@ -71,7 +72,6 @@ function displayUser() {
 function chkQuantity(quan, rownum) {
 
 	const inputs = document.querySelectorAll('input[type="number"]');
-	const numToBuy = document.getElementById("numToBuy");
 
 	if (inputs[rownum].value == "") {
 		alert("Please enter a new number.");
@@ -81,8 +81,8 @@ function chkQuantity(quan, rownum) {
 	
 	if (inputs[rownum].value > quan) {
 		alert("Quantity exceeds the number available.");
-		numToBuy.focus();
-		numToBuy.value = quan;
+		inputs[rownum].focus();
+		inputs[rownum].value = quan;
 	} 
 	
 	for (var i = 0; i < inputs.length; i++) {
@@ -95,13 +95,13 @@ function chkQuantity(quan, rownum) {
 }
 
 function chkqty() {
+
 	let inputs = document.querySelectorAll('input[type="number"]');
 	
 	// Checks if any item quantities are greater than 1
-	const noQuantities = inputs.every(input => input.value == 0);
-
-	if (noQuantities) {
+	if (Array.from(inputs).every(input => input.value == "0")) {
 		alert("No items bought!");
+		return false;
 
 	} else { // Exchange items
 
@@ -125,6 +125,7 @@ function chkqty() {
 				const withoutTax = (user == sellerIDs[i]) ? 0 : priceA[i] * inputs[i].value;
 				const finalPrice = (user == sellerIDs[i]) ? 0 : (withoutTax * 1.08);
 
+				priceWOtax.push(withoutTax);
 				buyQuan.push(inputs[i].value);
 				finSellerID.push(sellerIDs[i]);
 				finIid.push(IidA[i]);
@@ -214,8 +215,8 @@ function chkqty() {
 				}
 			}
 		
-			const params = "&TotalPrice=".concat(Totalprice)
-				.concat("combined=" + JSON.stringify(combined))
+			const params = "TotalPrice=".concat(Totalprice)
+				.concat("&combined=" + JSON.stringify(combined))
 				.concat("&combined2=" + JSON.stringify(combined2))
 				.concat("&combined3=" + JSON.stringify(combined3))
 				.concat("&combined4=" + JSON.stringify(combined4))
@@ -226,5 +227,6 @@ function chkqty() {
 			xhr.send(params);
 		}
 	}
+
 	return false;
 }

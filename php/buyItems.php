@@ -116,25 +116,25 @@
 	if (!$result || !$result2 || !$result3 && $iILen != 0 || !$result4 && $iOLen != 0 || !$result5 || !$result6 && $uOLen != 0 || !$result7) {
 		if(!$result){
 			print "query failed" .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result2){
 			print "query2 failed" .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result3 && $iILen != 0){
 			print "query3 failed" . $insertInven[0] .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result4 && $iOLen != 0){
 			print "query4 failed" . $iOLen .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result5){
 			print "query5 failed" .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result6 && $uOLen != 0){
 			print "query6 failed" . $uOLen .
-		mysqli_error();
+			mysqli_error($db);
 		}else if(!$result7){
 			print "query7 failed" .
-		mysqli_error();
+			mysqli_error($db);
 		}
 		exit;
 	}else{

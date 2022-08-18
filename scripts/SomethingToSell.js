@@ -195,7 +195,6 @@ function SubmitData (event) {
 				Iquanity[j] = inputs[i].value;
 				Iprice[j] = inputs[i+1].value;
 				Iid[j] = items[i];
-				//Iid[j] = x[i];
 				j++;
 			}
 		}
