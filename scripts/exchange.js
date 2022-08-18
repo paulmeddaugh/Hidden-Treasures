@@ -12,40 +12,55 @@ function displayUser() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var result = xhr.responseText;
-			
-			var jsonData = JSON.parse(result);
-			var rowCount = jsonData.length;
+
+			let result = xhr.responseText, jsonData;
+			try {
+				jsonData = JSON.parse(result);
+			} catch {
+				alert(result);
+				return;
+			}
+			const rowCount = jsonData.length;
 				
 			if (rowCount > 0) {
 
-				var tstring = ["<table>",
-					"<tr><th> Item Name </th><th> Description </th><th> Seller </th>",
-					"<th> Price </th><th> Quantity Available </th><th> Quantity To Buy </th></tr>"];
-				let j = 0;
+				let tstring = `
+					<table>
+						<tr>
+							<th> Item Name </th>
+							<th> Description </th>
+							<th> Seller </th>
+							<th> Price </th>
+							<th> Quantity Available </th>
+							<th> Quantity To Buy </th>
+						</tr>`;
 				for (var i = 0; i < rowCount; i++) {
 					var rowdata = jsonData[i];
 					if (rowdata.sellquan > 0) {
-						tstring.push("<tr><td><i>"+rowdata.Iname+"</i></td>",
-							"<td class=q>"+rowdata.descrip+"</td>",
-							"<td>"+rowdata.username+"</td>",
-							"<td>$"+rowdata.Sellprice+"</td>",
-							"<td>"+rowdata.sellquan+"</td>",
-							"<td><input value=\"0\" type=number min=0 id=\"numToBuy\" ",
-							"oninput=\"chkQuantity("+rowdata.sellquan+","+j+")\"></td></tr>");
+						tstring += `
+							<tr>
+								<td><i> ${rowdata.Iname}</i></td>
+								<td class=q>${rowdata.descrip}</td>
+								<td>${rowdata.username}</td>
+								<td>$${rowdata.Sellprice}</td>
+								<td>${rowdata.sellquan}</td>
+								<td>
+									<input value=\"0\" type=number min=0 id=\"numToBuy\"
+									oninput=\"chkQuantity(${rowdata.sellquan + "," + j}")\">
+								</td>
+							</tr>`;
 						
-						priceA[j] = rowdata.Sellprice;
-						sellerIDs[j] = rowdata.sellId;
-						IidA[j] = rowdata.Iid;
-						Iname[j] = rowdata.Iname;
-						des[j] = rowdata.descrip;
-						forsaleID[j] = rowdata.saleID;
-						j++;
+						priceA.push(rowdata.Sellprice);
+						sellerIDs.push(rowdata.sellId);
+						IidA.push(rowdata.Iid);
+						Iname.push(rowdata.Iname);
+						des.push(rowdata.descrip);
+						forsaleID.push(rowdata.saleID);
 					}
 				}
 				
-				tstring.push("</table>");
-				document.getElementById("dispTable").innerHTML = tstring.join("");
+				tstring += '</table>';
+				document.getElementById("dispTable").innerHTML = tstring;
 			}
 		}
 	}
@@ -54,221 +69,162 @@ function displayUser() {
 }
 
 function chkQuantity(quan, rownum) {
-		var inputs = document.getElementsByTagName("input");
-		var tr = document.getElementsByTagName("tr");
-		var quantity = document.getElementsByClassName("q");
-		var quanS = 0;
-		if (inputs[rownum].value == "") {
-			alert("Please enter a new number.");
-				document.getElementsByTagName("input")[rownum].value = 0;
-				document.getElementsByTagName("input")[rownum].focus();
-				document.getElementsByTagName("input")[rownum].select();
-		}
-		
-		if (inputs[rownum].value > quan) {
-				alert("Quantity exceeds the number available.");
-				//document.getElementById("numToBuy").style.setProperty('--focus-outline', '2px solid red');
-				document.getElementById("numToBuy").focus();
-				document.getElementById("numToBuy").value = quan;
-			} 
-		
-		var totalPrice = 0;
-		var hasAlreadyAlerted = false;
-		for(var i = 0; i < inputs.length - 1; i++){
-			if(inputs[i].value < 0) {
-				alert("Quantity cannot be negative");
-				quanS = inputs[i].value.slice(0,0);
-				document.getElementsByTagName("input")[i].value = quanS;
-				document.getElementsByTagName("input")[i].focus();
-				document.getElementsByTagName("input")[i].select();
-			}
-			/*if(inputs[i].value * tr[i+1].getElementsByTagName("td")[4].innerHTML.slice(1) > sessionStorage.getItem("balance") &&
-			   user != sellerIDs[i]){
-				quanS = inputs[i].value.slice(0,0);
-				document.getElementsByTagName("input")[i+1].value = quanS;
-				document.getElementsByTagName("input")[i+1].focus();
-				document.getElementsByTagName("input")[i+1].select();
-				hasAlreadyAlerted = true;
-				alert("Price of item to buy exceeds your balance (includes tax).");// only check one input
-			}*/
-			totalPrice += inputs[i].value * tr[i+1].getElementsByTagName("td")[4].innerHTML.slice(1) * 1.08;
-		}
-		/*if (totalPrice > sessionStorage.getItem("balance") && hasAlreadyAlerted == false) {
-			if (hasAlreadyAlerted == false) {
-				document.getElementsByTagName('submit').focus();
-				document.getElementsByTagName('submit').select();
-				alert("Quantity amount exceeds your balance");
-			}
-		}*/
+
+	const inputs = document.querySelectorAll('input[type="number"]');
+	const numToBuy = document.getElementById("numToBuy");
+
+	if (inputs[rownum].value == "") {
+		alert("Please enter a new number.");
+		inputs[rownum].value = 0;
+		inputs[rownum].focus();
 	}
 	
-	function chkqty(){
-		var inputs = document.getElementsByTagName("input");
-		var countEmpty = 0;
-		var buyQuan = [];
-		var finPrice = [];
-		var priceWOtax = [];
-		var finSellerID = [];
-		var oneSeller = [];
-		var finIid = [];
-		var combined = [];
-		var combined2 = [];
-		var combined3 = [];
-		var combined4 = [];
-		var combined5 = [];
-		var combined6 = [];
-		var sellers = [];
-		var allSellers = [];
-		var Totalprice = 0;
-		var Totalprices = [];
-		var j = 0;
-		var p = 0;
-		var q = 0;
-		var y = 0;
-		var h = 0;
-		var hold = 0;
-		var description = [];
-		var ItemName = [];
-		var soldIDs = [];
-		
-		
-		for(var i = 0; i < inputs.length-1; i++){
-			if(inputs[i].value == 0){
-				countEmpty++;
+	if (inputs[rownum].value > quan) {
+		alert("Quantity exceeds the number available.");
+		numToBuy.focus();
+		numToBuy.value = quan;
+	} 
+	
+	for (var i = 0; i < inputs.length; i++) {
+		if (inputs[i].value < 0) {
+			alert("Quantity cannot be negative");
+			inputs[i].value = 0;
+			inputs[i].focus();
+		}
+	}
+}
+
+function chkqty() {
+	let inputs = document.querySelectorAll('input[type="number"]');
+	
+	// Checks if any item quantities are greater than 1
+	const noQuantities = inputs.every(input => input.value == 0);
+
+	if (noQuantities) {
+		alert("No items bought!");
+
+	} else { // Exchange items
+
+		// For each row buying something, adds to arrays sent for the SQL queries to send one AJAX request
+		let Totalprice = 0;
+		let buyQuan = [];
+		let priceWOtax = [];
+		let finSellerID = [];
+		let finIid = [];
+		let sellers = [];
+		let Totalprices = [];
+		let description = [];
+		let ItemName = [];
+		let soldIDs = [];
+		let combined = [], combined2 = [], combined3 = [], combined4 = [], combined5 = [], combined6 = [];
+
+		// Build INSERT for 'Transactions' table ---------------------------------------------
+		for (var i = 0; i < inputs.length; i++) {
+			if (inputs[i].value > 0) { // Checks that quantity is greater than 0
+
+				const withoutTax = (user == sellerIDs[i]) ? 0 : priceA[i] * inputs[i].value;
+				const finalPrice = (user == sellerIDs[i]) ? 0 : (withoutTax * 1.08);
+
+				buyQuan.push(inputs[i].value);
+				finSellerID.push(sellerIDs[i]);
+				finIid.push(IidA[i]);
+				ItemName.push(Iname[i]);
+				description.push(des[i]);
+				soldIDs.push(forsaleID[i]);
+
+				combined.push("(NULL," + buyQuan[buyQuan.length - 1] + "," + finalPrice + "," + user + "," 
+					+ finSellerID[finSellerID.length - 1] + "," + finIid[finIid.length - 1] + ")");
+				Totalprice += finalPrice;
 			}
 		}
-		if(countEmpty == inputs.length-1){
-			alert("No items bought!");
+
+		// Build ending UPDATE query for seller balances----------------------------------------------
+		
+		// Determines sellerId
+		for (let index = 0; index < finSellerID.length; index++) {
+			if (index == 0 || (finSellerID[index] != user && finSellerID[index] != finSellerID[index -1])) {
+				sellers.push(finSellerID[index]);
+			}
 		}
-		else{
-			// building insert for transaction table ---------------------------------------------
-			
-			
-			for(var i = 0; i < inputs.length-1; i++){
-				if( inputs[i].value != 0){// make sure is not empty value
-				if(user == sellerIDs[i]){ // check to see if user is buying stuff back
-					buyQuan[j] = inputs[i].value;
-					finPrice[j] = 0;
-					priceWOtax[j] = 0;
-					finSellerID[j] = sellerIDs[i];
-					finIid[j] = IidA[i];
-					ItemName[j] = Iname[i];
-					description[j] = des[i];
-					soldIDs[j] = forsaleID[i];
-					j++;
-				}else{
-				// multiply price * quantity * 
-				buyQuan[j] = inputs[i].value;
-				finPrice[j] = (((priceA[i] * inputs[i].value) * 0.08) + (priceA[i] * inputs[i].value));
-				priceWOtax[j] = priceA[i] * inputs[i].value;
-				finSellerID[j] = sellerIDs[i];
-				finIid[j] = IidA[i];
-				ItemName[j] = Iname[i];
-				description[j] = des[i];
-				soldIDs[j] = forsaleID[i];
-				j++;
-				 } 
+		
+		// Determines total price
+		for (var a = 0; a < sellers.length; a++) {
+			let hold = 0;
+			for (var v = 0; v < finSellerID.length; v++) {
+				if (sellers[a] == finSellerID[v]) {
+					hold += priceWOtax[v];
 				}
 			}
-			for(var k = 0; k < buyQuan.length; k++){
-				combined[k] = "(NULL," + buyQuan[k] + "," + finPrice[k] + "," + user + "," + finSellerID[k] + "," + finIid[k] + ")";
-				Totalprice += finPrice[k];
-				//alert(combined[k]);
+
+			Totalprices[a] = hold;
+		}
+
+		// Creates ending UPDATE query
+		for (var n = 0; n < Totalprices.length; n++) {
+			combined2[n] = "WHEN idUser = " + sellers[n] + " THEN curBal %2B " + Totalprices[n];
+		}
+
+		// Build INSERT INTO VALUES for 'Inventory' table ----------------------------------------------------------
+		for (var b = 0; b < buyQuan.length; b++) {
+			if (user != finSellerID[b]) {
+				combined3.push("(NULL,'" + ItemName[b] + "', '" + description[b] + "')");
 			}
-			//-------------------------------------------------------------------------------------------
-			
-			
-			
-			
-			// build update for seller balances------------------------------------------------------------
-			for(var m = 0; m < finSellerID.length; m++){
-				if(m == 0){
-					sellers[p] = finSellerID[m];
-					p++;
-				}
-				if(finSellerID[m] != user && finSellerID[m] != finSellerID[m -1] && m != 0){
-					sellers[p] = finSellerID[m];
-					p++;
-				}
-			}
-			for(var a = 0; a < sellers.length; a++){
-				for(var v = 0; v < finSellerID.length; v++){
-					if(sellers[a] == finSellerID[v]){
-						hold += priceWOtax[v];
-						Totalprices[a] = hold;
-					}
-				}
-				hold = 0;
-			}
-			for(var n = 0; n < Totalprices.length; n++){
-				combined2[n] = "WHEN idUser = " + sellers[n] + " THEN curBal %2B " + Totalprices[n];
-				//alert(combined2[n]);
-			}
-			//---------------------------------------------------------------------------------------
-			// delete
-			
-			
-			// build insert into inventory----------------------------------------------------------
-			for(var b = 0; b < buyQuan.length; b++){
-				if (user != finSellerID[b]) {
-					combined3[y] = "(NULL," + "'" + ItemName[b] + "'" + "," + "'" + description[b] + "'" + ")";
-					y++;
+		}
+		
+		// Build ending INSERT for 'Owns' table--------------------------------------------------------------
+		for (var g = 0; g < buyQuan.length; g++) {
+			if (user != finSellerID[g]) {
+				if (g == 0) {
+					combined4.push("(last_insert_id()," + user + "," + buyQuan[g] + ")");
+				} else {
+					combined4.push("(last_insert_id()%2B" + (combined.length - 1) + "," + user + "," 
+						+ buyQuan[g] + ")");
 				}
 			}
-			
-			
-			// build insert for owns table--------------------------------------------------------------
-			
-			for(var g = 0; g < buyQuan.length; g++){
-				if(user != finSellerID[g]){
-				if(g == 0){
-				combined4[h] = "(last_insert_id()," + user + "," + buyQuan[g] + ")";
-				h++;
-				}else{
-					combined4[h] = "(last_insert_id()%2B" + h + "," + user + "," + buyQuan[g] + ")";
-					h++;
-				}
-				}
+		}
+		//--------------------------------------------------------------------------------------------
+		
+		// Build ending UPDATE for 'Sells' and 'Owns' table's quantity
+		for (var d = 0; d < soldIDs.length; d++) {
+			combined5[d] = "WHEN `4sale_id` = " + soldIDs[d] + " THEN quantity %2D " + buyQuan[d];
+			if (finSellerID[d] != user) {
+				combined6.push("WHEN item_idInventory = " + finIid[d] + " THEN quantity %2D " + buyQuan[d]);
 			}
-			//--------------------------------------------------------------------------------------------
-			
-			//build update for sells  and owns table's quanity 
-			for(var d = 0; d < soldIDs.length; d++){
-				combined5[d] = "WHEN `4sale_id` = " + soldIDs[d] + " THEN quantity %2D " + buyQuan[d];
-				if(finSellerID[d] != user){
-				combined6[q] = "WHEN item_idInventory = " + finIid[d] + " THEN quantity %2D " + buyQuan[d];
-				q++;
-				}
-				
-			}
-			// -------------------------------------------------------------------------------------
-			if (Totalprice > sessionStorage.getItem("balance")){
-			alert("Total price of items bought is over your balance. \n Please decrease your items or add money to balance");
+		}
+		// -------------------------------------------------------------------------------------
+		if (Totalprice > sessionStorage.getItem("balance")) {
+			alert("Total price of items bought is over your balance.\nPlease decrease your items or add money to balance.");
 			return false;
 		} else {
 			
-			var xhr = new XMLHttpRequest();
+			// AJAX to perform exchange
+			const xhr = new XMLHttpRequest();
 			xhr.open("POST", "../php/buyItems.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			 xhr.onreadystatechange = function () {
+			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
-					var result = xhr.responseText;
+
+					const result = xhr.responseText;
 					alert(result);
 					console.log(result);
 					
-					if(result.match(/Items Bought!/g)){
-					window.open('AccountInformation.html', '_self');
+					if (result.match(/Items Bought!/g)) {
+						window.open('AccountInformation.html', '_self');
 					}
-					
 				}
 			}
-			 console.log("user = " + user);
-			
-			 params = "combined="+ JSON.stringify(combined) + "&TotalPrice=" + Totalprice;
-			 params += "&combined2=" + JSON.stringify(combined2) + "&combined3=" + JSON.stringify(combined3);
-			 params += "&combined4=" + JSON.stringify(combined4) + "&combined5=" + JSON.stringify(combined5);
-			 params += "&combined6=" + JSON.stringify(combined6) + "&user=" + user;
-			 xhr.send(params);
-		}
+		
+			const params = "&TotalPrice=".concat(Totalprice)
+				.concat("combined=" + JSON.stringify(combined))
+				.concat("&combined2=" + JSON.stringify(combined2))
+				.concat("&combined3=" + JSON.stringify(combined3))
+				.concat("&combined4=" + JSON.stringify(combined4))
+				.concat("&combined5=" + JSON.stringify(combined5))
+				.concat("&combined6=" + JSON.stringify(combined6))
+				.concat("&user=" + user);
+
+			xhr.send(params);
 		}
 	}
+	return false;
+}
