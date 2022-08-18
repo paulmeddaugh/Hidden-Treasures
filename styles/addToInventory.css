@@ -15,10 +15,24 @@ textarea {
     resize: none;
     box-sizing: border-box;
     width: 100%;
+    font-family: Arial;
+}
+
+.posRelative {
+    position: relative;
+}
+
+#desLength {
+    position: absolute;
+    bottom: 0%;
+    right: 10%;
+    margin-bottom: 15px;
+    color: black;
+    font-size: 14pt;
 }
 
 input[type="number"] {
-    width:50px;
+    width: 50px;
     display: flex;
     justify-content: center;
 }

@@ -41,15 +41,21 @@ function chkIname(alertError = true) {
 
 	return true;
 }
+
+function updateDesCharLength(e) {
+	const span = document.getElementById('desLength');
+	span.innerHTML = e.currentTarget.value.length + '/37';
+	span.style.color = (e.currentTarget.value.length > 37) ?
+		'red' : 'black';
+}
 	
-function chkIdes(alertError) {
-	var des =  document.getElementById("itemDes");
-	var desS;
+function chkIdes(alertError = true) {
+	const des = document.getElementById("itemDes");
 	if (des.value.length > 37) {
 		if (alertError) alert("Item description cannot be over 37 characters.");
-		desS = des.value.slice(0,0);
-		document.getElementById("itemDes").value = desS;
-		document.getElementById("itemDes").focus();
+		des.value = des.value.split('').splice(0, 37).join('');
+		updateDesCharLength({ currentTarget: document.getElementsByTagName('textArea')[0] });
+		des.focus();
 		return false;
 	}
 
