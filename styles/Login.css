@@ -17,11 +17,11 @@ body {
 
 main {
 	padding: 30px;
-	--background-main: rgb(255, 255, 255, .0);
-	background: var(--background-main);
+	background: rgb(255, 255, 255, .0);
 	box-sizing: border-box;
 	border: 2px solid black;
 	position: relative;
+	transition: .5s ease;
 }
 
 div {
@@ -83,14 +83,6 @@ a {
 #bottom {
 	grid-column-start: 1;
 	grid-column-end: 4;
-}
-
-body:hover > div { /* Selects #top, #left, #bottom, #right when hovering any of them */
-	opacity: 0;
-}
-
-body:hover > div:not(:hover) { /* Selects #top, #left, #bottom, #right div not being hovered */
-	opacity: 1;
 }
 
 main:hover {

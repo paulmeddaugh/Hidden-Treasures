@@ -38,8 +38,8 @@ headerTemplate.innerHTML = `
   <div class="header">
  		<a class = "siteTitle" href="../index.html"> Hidden Treasures </a>
 		<div>
-			<a href="addInventory.html">Add Something</a>
-			<a href="SomethingToSell.html">Sell Something</a>
+			<a href="addInventory.html">Add Inventory</a>
+			<a href="SomethingToSell.html">Sell Inventory</a>
 			<a href="exchange.html">Exchange</a>
 		</div>
 		<a class="user" id="duser" href="AccountInformation.html">-</a>
