@@ -8,12 +8,14 @@ input.buy {
 	margin-left: 46%px; 
     border-color:#4CAF50;
 }
+
 th {
     padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 5px;
 	font-size: 14pt;
 }
+
 tr {
     color: white;
 	font-size: 12pt;
@@ -25,10 +27,12 @@ td, th, table {
 	font-size: 20px;
     border: 2px solid #303030;
 }
+
 td {
     padding: 8px;
     color:white;
 }
+
 #numToBuy {
     outline-offset: 2px;
     display: block;

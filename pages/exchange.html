@@ -2,7 +2,7 @@
 <html lang = "en">
 <head> 
 	<meta charset = "utf-8" />
-	<title> Hidden Treasures - Exchange </title>
+	<title> Hidden Treasures - Buy </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="../resources/icon.png">
 	<link rel="stylesheet" href="../styles/menu.css">
@@ -16,10 +16,11 @@
 	<header-component></header-component>
 	
 	<main>
-		<info-box-component title="Exchange"></info-box-component>
+		<info-box-component title="Buy Inventory"></info-box-component>
 
 		<div class="pageContent">
 			<form onsubmit="return chkqty()" name="exchange" method="POST">
+				<h3 class="grey-bg no-margin">Items On Sale</h3>
 				<div class="dispTableContainer">
 					<div id="dispTable">
 						<table>
@@ -32,7 +33,7 @@
 								<th> Quantity To Buy </th>
 							</tr>
 							<tr>
-								<td><i>Nothing</i></td>
+								<td><i>Nothing for Sale</i></td>
 								<td>Zilch</td>
 								<td>Nada</td>
 								<td>Rein</td>

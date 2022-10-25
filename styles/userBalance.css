@@ -1,11 +1,18 @@
 .info {
     text-align:center; 
-    color:#00BFFF;
+    color: white;
 }
 .center {
     text-align:center;
 }
-input.button {
+
+.balanceLabel {
+    background-color: grey;
+    padding-left: 5px;
+    padding-bottom: 1px;
+}
+
+.button {
     background-color:#4CAF50; 
     color: white; 
     border-color:#4CAF50;

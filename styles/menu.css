@@ -43,7 +43,7 @@ table {
     border-collapse: collapse;
     background-color: black;
     margin: 10px 0px 10px;
-	width: 100%;
+    width: 100%;
 }
 
 th {
@@ -80,4 +80,12 @@ input[type="submit"] {
 
 .max-content {
 	width: max-content;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.no-margin-top {
+	margin-top: 0px;
 }

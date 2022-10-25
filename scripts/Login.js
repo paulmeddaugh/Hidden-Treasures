@@ -59,11 +59,17 @@ function chkIfAllFieldsEntered() {
 	return false;
 }
 
+window.addEventListener("load", () => {
+	const e = {type: 'mouseenter'};
+	return mouseHoverMain(e);
+});
+
 /** Script for difficult styling when hovering in main.
  *
  * @param e A mouse event of either type 'mouseenter' or 'mouseleave' 
 */
 function mouseHoverMain(e) {
+	
 	const entering = (e.type == 'mouseenter') ? true : false;
 
 	 // Div's covering background image

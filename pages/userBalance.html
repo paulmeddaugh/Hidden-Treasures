@@ -7,20 +7,21 @@
 		<link rel="icon" href="../resources/icon.png">
 		<link rel="stylesheet" href="../styles/menu.css">
 		<link rel="stylesheet" href="../styles/userBalance.css">
+		<script src="../scripts/components/header.js"></script>
 		<script src="../scripts/userBalance.js"></script>
 	</head>
 	<body>
 
-		<div id = "menuAndInfoBar"></div>
+		<header-component></header-component>
 
-		<h3 class="info">
-			Please add the total amount of money to be added to your balance.
+		<h3 class="info grey-bg">
+			Please add the total amount of money to add to your balance.
 		</h3>
 		
 		<form onsubmit="chkEmpty()" method="POST">
 
 			<p class="info">
-				<label for="balance"> Amount:&nbsp; </label>
+				<label class="balanceLabel" for="balance"> Amount:&nbsp; </label>
 				<input type="text" id="balance" size="10" onblur="chkBalance()"/>
 			</p>
 		

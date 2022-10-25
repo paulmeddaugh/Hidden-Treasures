@@ -7,8 +7,8 @@
 		<link rel="stylesheet" href="../styles/SomethingToSell.css">
 		<link rel="stylesheet" href="../styles/menu.css">
 		<link rel="icon" href="../resources/icon.png">
-		<script src="../scripts/header.js"></script>
-		<script src="../scripts/infoBox.js"></script>
+		<script src="../scripts/components/header.js"></script>
+		<script src="../scripts/components/infoBox.js"></script>
 		<script src = "../scripts/SomethingToSell.js"></script>
 	</head>
 	<body onload = "displayUser()">
@@ -18,6 +18,8 @@
 
 			<div class="pageContent">
 				<form onsubmit = "SubmitData(event)">
+					<h3 class="grey-bg no-margin">Items To Sell In Inventory</h3>
+
 					<div class="tableContainer">
 						<table id = "table">
 							<tr>
@@ -29,7 +31,7 @@
 								<th> Price To Sell </th>
 							</tr>
 							<tr>
-								<td><i>Nothing<i></td>
+								<td><i>Nothing to sell<i></td>
 								<td>Zilch</td>
 								<td>Nada</td>
 								<td>Rein</td>
