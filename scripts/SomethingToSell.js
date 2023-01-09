@@ -26,7 +26,7 @@ function displayUser() {
 				// Table header
 				tstring = `<table><tr><th> Item </th><th> Description </th>
 							<th> Owned </th>
-							<th> Not On Market </th>
+							<th> Not On Sale </th>
 							<th> Quantity To Sell </th>
 							<th> Price To Sell </th></tr>`;
 				for (var i = 0; i < rowCount; i++) {
@@ -36,14 +36,18 @@ function displayUser() {
 						tstring += `<tr class=Item data-iid=${rowdata.Iid}>
 								<td class=Name><i>${rowdata.Iname}</i></td>
 								<td class=Description>${rowdata.descrip}</td>
-								<td class=\"QuantityOwned\">${rowdata.quan}</td>
-								<td class=\"QuantityAvailable\">${rowdata.quan}</td>
+								<td class="QuantityOwned">${rowdata.quan}</td>
+								<td class="QuantityAvailable">${rowdata.quan}</td>
 								<td align=center>
-								<input type=\"number\" value=\"0\" class=\"QuantityOnMarket\" min=\"0\"
-								onchange=\"chkIfNegative(event)\"></input></td>
-								<td align=center>$
-								<input type=\"number\" value = \"0\" min=\"0\" max=\"999\" class=\"Price\"
-								onchange=\"chkIfNegative(event)\"></input></td>
+									<input type="number" value="0" class="QuantityOnMarket" min="0"
+									onchange="chkIfNegative(event)"></input></td>
+								<td align=center>
+									<div class='flex p-2-lr'>
+										<span id="dollarSign">$</span>
+										<input type="number" value = "0" min="0" max="999" class="Price"
+											onchange="chkIfNegative(event)" />
+									</div>
+								</td>
 							</tr>`;
 						
 						x[j] = rowdata.Iid;

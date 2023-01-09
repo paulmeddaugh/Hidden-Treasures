@@ -59,3 +59,15 @@ p {
 .disableArrowSpinners {
 	-moz-appearance: textfield;
 }
+
+.flex {
+	display: flex;
+}
+
+.p-2-lr {
+	padding: 0px 2px;
+}
+
+#dollarSign {
+	padding-top: -4px;
+}
